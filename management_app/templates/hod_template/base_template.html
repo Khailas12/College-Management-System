@@ -27,6 +27,16 @@
   <link rel="stylesheet" href="{% static "plugins/summernote/summernote-bs4.css" %}">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+  
+  <!--vendors styles-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
+
+  <!--this is for fontawesome-->
+  <script src="https://kit.fontawesome.com/44dea594b7.js" crossorigin="anonymous"></script>
+
     {% block custom_css %}{% endblock custom_css %}
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -40,13 +50,30 @@
         <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
       </li>
     </ul>
-    <h4 style="margin-left: 10px;margin-top: 5px;">Student Management Sytem HOD Login</h4>
+
+    <h4 class="m-0 text-dark">
+      {% block page_title %}
+      {% endblock page_title %}
+    </h4>
+
+    <div class="col-sm-6">
+      <h1 style="text-align:center' 10px;margin-top: 5px;">HOD Panel</h1>
+    </div>
+
     <ul class="navbar-nav ml-auto">
       <!-- Messages Dropdown Menu -->
       <li class="nav-item">
-        <a class="nav-link" href="{% url 'logout' %}">
+        <!-- <a class="nav-link" href="{% url 'logout' %}">
           Logout
-        </a>
+        </a> -->
+         <ol class="breadcrumb float-sm-right">
+           
+          <a href="{% url 'logout' %}"> Logout <i class="fa-solid fa-right-from-bracket"></i> 
+          </a> 
+            
+          </li>
+          
+        </ol>
       </li>
     </ul>
 
@@ -62,17 +89,9 @@
        <!-- Content Header (Page header) -->
     <div class="content-header">
       <div class="container-fluid">
-        <div class="row mb-2">
+        <div class="row mb-0">
+
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">
-                {% block page_title %}
-                {% endblock page_title %}
-            </h1>
-          </div><!-- /.col -->
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="{% url 'admin_home' %}">Home</a></li>
-            </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
