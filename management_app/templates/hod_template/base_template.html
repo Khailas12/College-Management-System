@@ -39,6 +39,7 @@
 
     {% block custom_css %}{% endblock custom_css %}
 </head>
+
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
 
@@ -57,22 +58,16 @@
     </h4>
 
     <div class="col-sm-6">
-      <h1 style="text-align:center' 10px;margin-top: 5px;">HOD Panel</h1>
+      <h1 style="text-align:center' 10px;margin-top: 5px;">HOD PANEL</h1> 
     </div>
 
     <ul class="navbar-nav ml-auto">
       <!-- Messages Dropdown Menu -->
       <li class="nav-item">
-        <!-- <a class="nav-link" href="{% url 'logout' %}">
-          Logout
-        </a> -->
-         <ol class="breadcrumb float-sm-right">
-           
+         <ol class="breadcrumb float-sm-right"> 
           <a href="{% url 'logout' %}"> Logout <i class="fa-solid fa-right-from-bracket"></i> 
-          </a> 
-            
+          </a>
           </li>
-          
         </ol>
       </li>
     </ul>
@@ -101,7 +96,7 @@
 
   </div>
   <!-- /.content-wrapper -->
-    {% include 'hod_template/footer.html' %}
+    {% include 'footer.html' %}
 
 </div>
 <!-- ./wrapper -->

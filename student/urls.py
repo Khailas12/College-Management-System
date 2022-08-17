@@ -5,7 +5,7 @@ from . import views
 
 urlpatterns = [    
             
-    path('', views.student_home, name="student"),    # home page
+    path('', views.student_home, name="student_home"),    # home page
     
     path('student_view_attendance', views.student_view_attendance, name="student_view_attendance"),
     path('student_view_attendance_post', views.student_view_attendance_post, name="student_view_attendance_post"),

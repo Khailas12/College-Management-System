@@ -27,8 +27,13 @@
   <link rel="stylesheet" href="{% static "plugins/summernote/summernote-bs4.css" %}">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+  <!--this is for fontawesome-->
+  <script src="https://kit.fontawesome.com/44dea594b7.js" crossorigin="anonymous"></script>
+
     {% block custom_css %}{% endblock custom_css %}
 </head>
+
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
 
@@ -40,13 +45,26 @@
         <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
       </li>
     </ul>
-    <h4 style="margin-left: 10px;margin-top: 5px;">Staff Panel</h4>
+
+    
+      <div class="col-sm-6">
+      <h1 style="text-align:center' 10px;margin-top: 5px;">STAFF PANEL</h1> 
+    </div>
+
+
     <ul class="navbar-nav ml-auto">
       <!-- Messages Dropdown Menu -->
       <li class="nav-item">
-        <a class="nav-link" href="{% url 'logout' %}">
+        <!-- <a class="nav-link" href="{% url 'logout' %}">
           Logout
-        </a>
+        </a> -->
+         <ol class="breadcrumb float-sm-right">
+           
+          <a href="{% url 'logout' %}"> Logout <i class="fa-solid fa-right-from-bracket"></i> 
+          </a> 
+            
+          </li>
+        </ol>
       </li>
     </ul>
 
@@ -69,20 +87,20 @@
                 {% endblock page_title %}
             </h1>
           </div><!-- /.col -->
-          <div class="col-sm-6">
+          <!-- <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="{% url 'staff_home' %}">Home</a></li>
             </ol>
-          </div><!-- /.col -->
+          </div>/.col -->
         </div><!-- /.row -->
-      </div><!-- /.container-fluid -->
+      </div>
     </div>
     <!-- /.content-header -->
      {% block main_content %}{% endblock main_content %}
 
   </div>
   <!-- /.content-wrapper -->
-    {% include 'staff_template/footer.html' %}
+    {% include 'footer.html' %}
 
 </div>
 <!-- ./wrapper -->
