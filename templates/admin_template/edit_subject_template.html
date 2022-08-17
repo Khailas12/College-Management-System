@@ -1,6 +1,6 @@
-{% extends 'hod_template/base_template.html' %}
+{% extends 'admin_template/base_template.html' %}
 {% block page_title %}
-Edit Profile
+Edit Subject | Subject ID : {{ subject.id }}
 {% endblock page_title %}
 {% block main_content %}
     <!-- Main content -->
@@ -11,32 +11,33 @@ Edit Profile
             <!-- general form elements -->
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Edit Profile</h3>
+                <h3 class="card-title">Edit Subject</h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form role="form" action="{% url 'admin_profile_save' %}" method="post">
+              <form role="form" action="/edit_subject_save" method="post">
                   {% csrf_token %}
                 <div class="card-body">
                   <div class="form-group">
-                    <label>Username</label>
-                    <input type="text" class="form-control" name="username" value="{{ user.username }}" disabled="disabled">
-                  </div>
-                  <div class="form-group">
-                    <label>Username</label>
-                    <input type="text" class="form-control" name="username" value="{{ user.email }}" disabled="disabled">
+                    <label>Subject Name </label>
+                    <input type="text" class="form-control" name="subject_name" placeholder="Enter Subject" value="{{ subject.subject_name }}">
+                    <input type="hidden" class="form-control" name="subject_id" placeholder="Enter Subject" value="{{ subject.id }}">
                   </div>
                    <div class="form-group">
-                    <label>First Name</label>
-                    <input type="text" class="form-control" name="first_name" value="{{ user.first_name }}">
+                    <label>Course </label>
+                    <select class="form-control" name="course">
+                        {% for course in courses %}
+                              <option value="{{ course.id }}" {% if course.id == subject.course_id.id %} selected {% endif %}>{{ course.course_name }}</option>
+                        {% endfor %}
+                    </select>
                   </div>
                   <div class="form-group">
-                    <label>Last Name</label>
-                    <input type="text" class="form-control" name="last_name" value="{{ user.last_name }}">
-                  </div>
-                   <div class="form-group">
-                    <label>Change Password?</label>
-                    <input type="text" class="form-control" name="password" placeholder="Fill Only If You want to Change Password">
+                    <label>Staff</label>
+                    <select class="form-control" name="staff">
+                        {% for staff in staffs %}
+                          <option value="{{ staff.id }}" {% if staff.id == subject.staff_id.id %} selected {% endif %}>{{ staff.first_name }} {{ staff.last_name }}</option>
+                        {% endfor %}
+                    </select>
                   </div>
                    <div class="form-group">
                       {% if messages %}
@@ -55,7 +56,7 @@ Edit Profile
                 <!-- /.card-body -->
 
                 <div class="card-footer">
-                  <button type="submit" class="btn btn-primary btn-block">Save Profile</button>
+                  <button type="submit" class="btn btn-primary btn-block">Save Subject</button>
                 </div>
               </form>
             </div>

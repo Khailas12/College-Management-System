@@ -1,6 +1,6 @@
-{% extends 'hod_template/base_template.html' %}
+{% extends 'admin_template/base_template.html' %}
 {% block page_title %}
-Manage Student
+Manage Staff
 {% endblock page_title %}
 {% block main_content %}
     <!-- Main content -->
@@ -12,7 +12,7 @@ Manage Student
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Students</h3>
+                <h3 class="card-title">Staff Details</h3>
 
                 <div class="card-tools">
                   <div class="input-group input-group-sm" style="width: 150px;">
@@ -38,14 +38,13 @@ Manage Student
                     </tr>
                   </thead>
                   <tbody>
-                  {% for student in students %}
+                  {% for staff in staffs %}
                     <tr>
-                      <td>{{ student.admin.id }}</td>
-                      <td>{{ student.admin.first_name }}</td>
-                      <td>{{ student.admin.last_name }}</td>
-                      <td>{{ student.admin.username }}</td>
-                      <td>{{ student.admin.email }}</td>
-                      <td>{{ student.address }}</td>
+                      <td>{{ staff.admin.id }}</td>
+                      <td>{{ staff.admin.first_name }}</td>
+                      <td>{{ staff.admin.last_name }}</td>
+                      <td>{{ staff.admin.username }}</td>
+                      <td>{{ staff.admin.email }}</td>
                       <td><a href="#" class="btn btn-success show_notification" data-toggle="modal" data-target="#myModal">Send Notification</a></td>
                     </tr>
                   {% endfor %}
@@ -59,7 +58,7 @@ Manage Student
         </div>
       </div>
     </section>
-
+    <!-- /.content -->
 <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
 
@@ -75,7 +74,7 @@ Manage Student
              <input type="hidden" name="student_id" class="form-control" id="student_id">
           </div>
           <div class="form-group">
-            <button class="btn btn-info btn-block send_notification_btn" type="button">Send Notification</button>
+            <button class="btn btn-info btn-block send_notification_btn"  type="button">Send Notification</button>
           </div>
         </div>
         <div class="modal-footer">
@@ -85,7 +84,6 @@ Manage Student
 
     </div>
   </div>
-    <!-- /.content -->
 {% endblock main_content %}
 {% block custom_js %}
 <script>
@@ -106,7 +104,7 @@ Manage Student
 
   function sendNotification(id,message){
            $.ajax({
-            url:'{% url 'send_student_notification' %}',
+            url:'{% url 'send_staff_notification' %}',
             type:'POST',
             data:{id:id,message:message},
         })

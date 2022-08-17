@@ -1,6 +1,6 @@
-{% extends 'hod_template/base_template.html' %}
+{% extends 'admin_template/base_template.html' %}
 {% block page_title %}
-Edit Course |  Course ID : {{ course.id }}
+Edit Profile
 {% endblock page_title %}
 {% block main_content %}
     <!-- Main content -->
@@ -11,17 +11,32 @@ Edit Course |  Course ID : {{ course.id }}
             <!-- general form elements -->
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Edit Course</h3>
+                <h3 class="card-title">Edit Profile</h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form role="form" action="/edit_course_save" method="post">
+              <form role="form" action="{% url 'admin_profile_save' %}" method="post">
                   {% csrf_token %}
                 <div class="card-body">
                   <div class="form-group">
-                    <label>Course Name </label>
-                    <input type="text" class="form-control" name="course" placeholder="Enter Course" value="{{ course.course_name }}">
-                    <input type="hidden"  name="course_id"  value="{{ course.id }}">
+                    <label>Username</label>
+                    <input type="text" class="form-control" name="username" value="{{ user.username }}" disabled="disabled">
+                  </div>
+                  <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" class="form-control" name="username" value="{{ user.email }}" disabled="disabled">
+                  </div>
+                   <div class="form-group">
+                    <label>First Name</label>
+                    <input type="text" class="form-control" name="first_name" value="{{ user.first_name }}">
+                  </div>
+                  <div class="form-group">
+                    <label>Last Name</label>
+                    <input type="text" class="form-control" name="last_name" value="{{ user.last_name }}">
+                  </div>
+                   <div class="form-group">
+                    <label>Change Password?</label>
+                    <input type="text" class="form-control" name="password" placeholder="Fill Only If You want to Change Password">
                   </div>
                    <div class="form-group">
                       {% if messages %}
@@ -40,7 +55,7 @@ Edit Course |  Course ID : {{ course.id }}
                 <!-- /.card-body -->
 
                 <div class="card-footer">
-                  <button type="submit" class="btn btn-primary btn-block">Save Course</button>
+                  <button type="submit" class="btn btn-primary btn-block">Save Profile</button>
                 </div>
               </form>
             </div>
