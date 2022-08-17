@@ -81,19 +81,6 @@ DATABASES = {
     }
 }
 
-# DATABASES = {
-#     'default': {
-#         #=====Enable Only Making Project Live on Heroku====
-#          'ENGINE': 'django.db.backends.sqlite3',
-#          'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#         #'ENGINE':'django.db.backends.mysql',
-#         #'NAME':'main_system',
-#         #'USER':'main_system',
-#         #'PASSWORD':'student_management_password',
-#         #'HOST':'localhost',
-#         #'PORT':'3306'
-#     }
-# }
 
 
 # Password validation
