@@ -70,10 +70,10 @@ def admin_page(request):
         student_name_list.append(student.admin.username)
 
 
-    return render(request,"admin_template/home_content.html",{"student_count":student_count1,"staff_count":staff_count,"subject_count":subject_count,"course_count":course_count,"course_name_list":course_name_list,"subject_count_list":subject_count_list,"student_count_list_in_course":student_count_list_in_course,"student_count_list_in_subject":student_count_list_in_subject,"subject_list":subject_list,"staff_name_list":staff_name_list,"attendance_present_list_staff":attendance_present_list_staff,"attendance_absent_list_staff":attendance_absent_list_staff,"student_name_list":student_name_list,"attendance_present_list_student":attendance_present_list_student,"attendance_absent_list_student":attendance_absent_list_student})
+    return render(request,"hod_template/home_content.html",{"student_count":student_count1,"staff_count":staff_count,"subject_count":subject_count,"course_count":course_count,"course_name_list":course_name_list,"subject_count_list":subject_count_list,"student_count_list_in_course":student_count_list_in_course,"student_count_list_in_subject":student_count_list_in_subject,"subject_list":subject_list,"staff_name_list":staff_name_list,"attendance_present_list_staff":attendance_present_list_staff,"attendance_absent_list_staff":attendance_absent_list_staff,"student_name_list":student_name_list,"attendance_present_list_student":attendance_present_list_student,"attendance_absent_list_student":attendance_absent_list_student})
 
 def add_staff(request):
-    return render(request,"admin_template/add_staff_template.html")
+    return render(request,"hod_template/add_staff_template.html")
 
 def add_staff_save(request):
     if request.method!="POST":
@@ -96,7 +96,7 @@ def add_staff_save(request):
             return HttpResponseRedirect(reverse("add_staff"))
 
 def add_course(request):
-    return render(request,"admin_template/add_course_template.html")
+    return render(request,"hod_template/add_course_template.html")
 
 def add_course_save(request):
     if request.method!="POST":
@@ -115,7 +115,7 @@ def add_course_save(request):
 
 def add_student(request):
     form=AddStudentForm()
-    return render(request,"admin_template/add_student_template.html",{"form":form})
+    return render(request,"hod_template/add_student_template.html",{"form":form})
 
 def add_student_save(request):
     if request.method!="POST":
@@ -155,13 +155,13 @@ def add_student_save(request):
                 return HttpResponseRedirect(reverse("add_student"))
         else:
             form=AddStudentForm(request.POST)
-            return render(request, "admin_template/add_student_template.html", {"form": form})
+            return render(request, "hod_template/add_student_template.html", {"form": form})
 
 
 def add_subject(request):
     courses=Courses.objects.all()
     staffs=CustomUser.objects.filter(user_type=2)
-    return render(request,"admin_template/add_subject_template.html",{"staffs":staffs,"courses":courses})
+    return render(request,"hod_template/add_subject_template.html",{"staffs":staffs,"courses":courses})
 
 def add_subject_save(request):
     if request.method!="POST":
@@ -185,23 +185,23 @@ def add_subject_save(request):
 
 def manage_staff(request):
     staffs=Staffs.objects.all()
-    return render(request,"admin_template/manage_staff_template.html",{"staffs":staffs})
+    return render(request,"hod_template/manage_staff_template.html",{"staffs":staffs})
 
 def manage_student(request):
     students=Students.objects.all()
-    return render(request,"admin_template/manage_student_template.html",{"students":students})
+    return render(request,"hod_template/manage_student_template.html",{"students":students})
 
 def manage_course(request):
     courses=Courses.objects.all()
-    return render(request,"admin_template/manage_course_template.html",{"courses":courses})
+    return render(request,"hod_template/manage_course_template.html",{"courses":courses})
 
 def manage_subject(request):
     subjects=Subjects.objects.all()
-    return render(request,"admin_template/manage_subject_template.html",{"subjects":subjects})
+    return render(request,"hod_template/manage_subject_template.html",{"subjects":subjects})
 
 def edit_staff(request,staff_id):
     staff=Staffs.objects.get(admin=staff_id)
-    return render(request,"admin_template/edit_staff_template.html",{"staff":staff,"id":staff_id})
+    return render(request,"hod_template/edit_staff_template.html",{"staff":staff,"id":staff_id})
 
 def edit_staff_save(request):
     if request.method!="POST":
@@ -243,7 +243,7 @@ def edit_student(request,student_id):
     form.fields['course'].initial=student.course_id.id
     form.fields['sex'].initial=student.gender
     form.fields['session_year_id'].initial=student.session_year_id.id
-    return render(request,"admin_template/edit_student_template.html",{"form":form,"id":student_id,"username":student.admin.username})
+    return render(request,"hod_template/edit_student_template.html",{"form":form,"id":student_id,"username":student.admin.username})
 
 def edit_student_save(request):
     if request.method!="POST":
@@ -300,13 +300,13 @@ def edit_student_save(request):
         else:
             form=EditStudentForm(request.POST)
             student=Students.objects.get(admin=student_id)
-            return render(request,"admin_template/edit_student_template.html",{"form":form,"id":student_id,"username":student.admin.username})
+            return render(request,"hod_template/edit_student_template.html",{"form":form,"id":student_id,"username":student.admin.username})
 
 def edit_subject(request,subject_id):
     subject=Subjects.objects.get(id=subject_id)
     courses=Courses.objects.all()
     staffs=CustomUser.objects.filter(user_type=2)
-    return render(request,"admin_template/edit_subject_template.html",{"subject":subject,"staffs":staffs,"courses":courses,"id":subject_id})
+    return render(request,"hod_template/edit_subject_template.html",{"subject":subject,"staffs":staffs,"courses":courses,"id":subject_id})
 
 def edit_subject_save(request):
     if request.method!="POST":
@@ -335,7 +335,7 @@ def edit_subject_save(request):
 
 def edit_course(request,course_id):
     course=Courses.objects.get(id=course_id)
-    return render(request,"admin_template/edit_course_template.html",{"course":course,"id":course_id})
+    return render(request,"hod_template/edit_course_template.html",{"course":course,"id":course_id})
 
 def edit_course_save(request):
     if request.method!="POST":
@@ -357,7 +357,7 @@ def edit_course_save(request):
 
 
 def manage_session(request):
-    return render(request,"admin_template/manage_session_template.html")
+    return render(request,"hod_template/manage_session_template.html")
 
 def add_session_save(request):
     if request.method!="POST":
@@ -395,11 +395,11 @@ def check_username_exist(request):
 
 def staff_feedback_message(request):
     feedbacks=FeedBackStaffs.objects.all()
-    return render(request,"admin_template/staff_feedback_template.html",{"feedbacks":feedbacks})
+    return render(request,"hod_template/staff_feedback_template.html",{"feedbacks":feedbacks})
 
 def student_feedback_message(request):
     feedbacks=FeedBackStudent.objects.all()
-    return render(request,"admin_template/student_feedback_template.html",{"feedbacks":feedbacks})
+    return render(request,"hod_template/student_feedback_template.html",{"feedbacks":feedbacks})
 
 @csrf_exempt
 def student_feedback_message_replied(request):
@@ -429,11 +429,11 @@ def staff_feedback_message_replied(request):
 
 def staff_leave_view(request):
     leaves=LeaveReportStaff.objects.all()
-    return render(request,"admin_template/staff_leave_view.html",{"leaves":leaves})
+    return render(request,"hod_template/staff_leave_view.html",{"leaves":leaves})
 
 def student_leave_view(request):
     leaves=LeaveReportStudent.objects.all()
-    return render(request,"admin_template/student_leave_view.html",{"leaves":leaves})
+    return render(request,"hod_template/student_leave_view.html",{"leaves":leaves})
 
 def student_approve_leave(request,leave_id):
     leave=LeaveReportStudent.objects.get(id=leave_id)
@@ -463,7 +463,7 @@ def staff_disapprove_leave(request,leave_id):
 def admin_view_attendance(request):
     subjects=Subjects.objects.all()
     session_year_id=SessionYearModel.object.all()
-    return render(request,"admin_template/admin_view_attendance.html",{"subjects":subjects,"session_year_id":session_year_id})
+    return render(request,"hod_template/admin_view_attendance.html",{"subjects":subjects,"session_year_id":session_year_id})
 
 @csrf_exempt
 def admin_get_attendance_dates(request):
@@ -495,7 +495,7 @@ def admin_get_attendance_student(request):
 
 def admin_profile(request):
     user=CustomUser.objects.get(id=request.user.id)
-    return render(request,"admin_template/admin_profile.html",{"user":user})
+    return render(request,"hod_template/admin_profile.html",{"user":user})
 
 def admin_profile_save(request):
     if request.method!="POST":
@@ -519,11 +519,11 @@ def admin_profile_save(request):
 
 def admin_send_notification_student(request):
     students=Students.objects.all()
-    return render(request,"admin_template/student_notification.html",{"students":students})
+    return render(request,"hod_template/student_notification.html",{"students":students})
 
 def admin_send_notification_staff(request):
     staffs=Staffs.objects.all()
-    return render(request,"admin_template/staff_notification.html",{"staffs":staffs})
+    return render(request,"hod_template/staff_notification.html",{"staffs":staffs})
 
 @csrf_exempt
 def send_student_notification(request):

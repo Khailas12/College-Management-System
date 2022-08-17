@@ -30,6 +30,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     
+    # 'fontawesomefree',
+    
     # apps
     'management_app',   
     'staff',
@@ -55,7 +57,7 @@ ROOT_URLCONF = 'main_system.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates'],
+        'DIRS': ['management_app/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
