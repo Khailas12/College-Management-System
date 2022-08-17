@@ -27,6 +27,10 @@
   <link rel="stylesheet" href="{% static "plugins/summernote/summernote-bs4.css" %}">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  
+  <!--this is for fontawesome-->
+  <script src="https://kit.fontawesome.com/44dea594b7.js" crossorigin="anonymous"></script>
+
     {% block custom_css %}{% endblock custom_css %}
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -62,18 +66,10 @@
        <!-- Content Header (Page header) -->
     <div class="content-header">
       <div class="container-fluid">
-        <div class="row mb-2">
+        <div class="row mb-0">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">
-                {% block page_title %}
-                {% endblock page_title %}
-            </h1>
+
           </div><!-- /.col -->
-          <!-- <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="{% url 'admin_page' %}">Home</a></li>
-            </ol>
-          </div>/.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
     </div>
