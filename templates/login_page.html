@@ -41,6 +41,7 @@
             </div>
           </div>
         </div>
+
         <div class="input-group mb-3">
           <input type="password" class="form-control" placeholder="Password" name="password">
           <div class="input-group-append">
@@ -61,15 +62,16 @@
              <a href="{% url 'password_reset' %}">Reset Password</a>
           </div><!-- /.col -->
             <div class="col-12 text-center">
-             <a href="{% url 'signup_admin' %}">Admin Signup FOR TESTING</a>
+             <a href="{% url 'signup_admin' %}">Admin Signup</a>
           </div><!-- /.col -->
                         <div class="col-12 text-center">
-             <a href="{% url 'signup_staff' %}">Staff Signup FOR TESTING</a>
+             <a href="{% url 'signup_staff' %}">Staff Signup</a>
           </div><!-- /.col -->
                                     <div class="col-12 text-center">
-             <a href="{% url 'signup_student' %}">Student Signup FOR TESTING</a>
+             <a href="{% url 'signup_student' %}">Student Signup</a>
           </div><!-- /.col -->
         </div>
+
         <div class="row">
           {% if messages %}
          <div class="col-12">
@@ -78,6 +80,7 @@
             <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
             {% endif %}
             {% if message.tags == 'success' %}
+
             <div class="alert alert-success" style="margin-top:10px">{{ message }}</div>
             {% endif %}
             {% endfor %}
@@ -89,7 +92,6 @@
       <!-- /.social-auth-links -->
 
     </div>
-    <!-- /.login-card-body -->
   </div>
 </div>
 <!-- /.login-box -->
