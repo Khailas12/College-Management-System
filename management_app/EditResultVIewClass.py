@@ -4,8 +4,8 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.views import View
 
-from management_app.forms import EditResultForm
-from management_app.models import Students, Subjects, StudentResult
+from .forms import EditResultForm
+from .models import Students, Subjects, StudentResult
 
 
 class EditResultViewClass(View):
