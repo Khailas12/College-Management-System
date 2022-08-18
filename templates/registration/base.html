@@ -18,20 +18,66 @@
   <link rel="stylesheet" href="{% static "dist/css/adminlte.min.css" %}">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
 </head>
-<body class="hold-transition login-page">
-<div class="login-box">
-  <div class="login-logo">
-    <a href="../../index2.html"><b>Student</b> Management System</a>
-  </div>
-  <!-- /.login-logo -->
-  <div class="card">
-      {% block content %}
-      {% endblock content %}
-    <!-- /.login-card-body -->
-  </div>
-</div>
-<!-- /.login-box -->
+<section class="background-radial-gradient overflow-hidden">
+  <style>
+    .background-radial-gradient {
+      background-color: hsl(218, 41%, 15%);
+      background-image: radial-gradient(650px circle at 0% 0%,
+          hsl(218, 41%, 35%) 15%,
+          hsl(218, 41%, 30%) 35%,
+          hsl(218, 41%, 20%) 75%,
+          hsl(218, 41%, 19%) 80%,
+          transparent 100%),
+        radial-gradient(1250px circle at 100% 100%,
+          hsl(218, 41%, 45%) 15%,
+          hsl(218, 41%, 30%) 35%,
+          hsl(218, 41%, 20%) 75%,
+          hsl(218, 41%, 19%) 80%,
+          transparent 100%);
+    }
+
+    #radius-shape-1 {
+      height: 220px;
+      width: 220px;
+      top: -60px;
+      left: -130px;
+      background: radial-gradient(#44006b, #ad1fff);
+      overflow: hidden;
+    }
+
+    #radius-shape-2 {
+      border-radius: 38% 62% 63% 37% / 70% 33% 67% 30%;
+      bottom: -60px;
+      right: -110px;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(#44006b, #ad1fff);
+      overflow: hidden;
+    }
+
+    .bg-glass {
+      background-color: hsla(0, 0%, 100%, 0.9) !important;
+      backdrop-filter: saturate(200%) blur(25px);
+    }
+  </style>
+
+  <section class="vh-100">
+    <div class="container py-5 h-100">
+      <div class="row d-flex align-items-center justify-content-center h-100">
+        <div class="col-md-8 col-lg-7 col-xl-6">
+          <img src="https://res.cloudinary.com/dzzjp6xlv/image/upload/v1660864166/samples/Mediamodifier-Design-Template_scmgll.png"
+            class="img-fluid" alt="Phone image">
+        </div>
+            
+      <sect class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
+        {% block content %}
+        {% endblock content %}
+
+
+</section>
+
 
 <!-- jQuery -->
 <script src="{% static "plugins/jquery/jquery.min.js" %}"></script>
@@ -39,6 +85,9 @@
 <script src="{% static "plugins/bootstrap/js/bootstrap.bundle.min.js" %}"></script>
 <!-- AdminLTE App -->
 <script src="{% static "dist/js/adminlte.min.js" %}"></script>
+<!-- <script src="https://www.google.com/recaptcha/api.js" async defer></script> -->
+
+<script src="https://kit.fontawesome.com/44dea594b7.js" crossorigin="anonymous"></script>
 
 </body>
 </html>

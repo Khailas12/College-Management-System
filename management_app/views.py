@@ -109,6 +109,7 @@ def do_admin_signup(request):
         user = CustomUser.objects.create_user(
             username=username, password=password, email=email, user_type=1)
         user.save()
+        
         messages.success(request, "Successfully Created Admin")
         return HttpResponseRedirect(reverse("show_login"))
 
@@ -118,15 +119,22 @@ def do_admin_signup(request):
 
 
 def do_staff_signup(request):
+    first_name = request.POST.get("first_name")
+    last_name = request.POST.get("last_name")
     username = request.POST.get("username")
     email = request.POST.get("email")
     password = request.POST.get("password")
     address = request.POST.get("address")
+    sex = request.POST.get("sex")
 
     try:
         user = CustomUser.objects.create_user(
+            last_name=last_name,  first_name=first_name, 
             username=username, password=password, email=email, user_type=2)
+        
         user.staffs.address = address
+        user.staffs.gender = sex
+        
         user.save()
         
         messages.success(request, "Successfully Created Staff")
