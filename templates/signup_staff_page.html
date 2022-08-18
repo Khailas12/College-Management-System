@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Student Management System | Staff Signup</title>
+  <title>Student Management System | Log in</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -19,78 +19,119 @@
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
-<body class="hold-transition login-page">
-<div class="login-box">
-  <div class="login-logo">
-    <a href="../../index2.html"><b>Student</b> Management System</a>
-  </div>
-  <!-- /.login-logo -->
-  <div class="card">
-    <div class="card-body login-card-body">
-      <p class="login-box-msg">Sign Up Staff to Student Management System</p>
 
-      <form action="/do_staff_signup" method="post" id="demo-form">
-      {% csrf_token %}
-        <div class="input-group mb-3">
-          <input type="email" class="form-control" placeholder="Email" name="email">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-envelope"></span>
-            </div>
-          </div>
-        </div>
-              <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="Username" name="username">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-envelope"></span>
-            </div>
-          </div>
-        </div>
-        <div class="input-group mb-3">
-          <input type="password" class="form-control" placeholder="Password" name="password">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-lock"></span>
-            </div>
-          </div>
-        </div>
-          <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="Address" name="address">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-lock"></span>
-            </div>
-          </div>
+<section class="background-radial-gradient overflow-hidden">
+  <style>
+    .background-radial-gradient {
+      background-color: hsl(218, 41%, 15%);
+      background-image: radial-gradient(650px circle at 0% 0%,
+          hsl(218, 41%, 35%) 15%,
+          hsl(218, 41%, 30%) 35%,
+          hsl(218, 41%, 20%) 75%,
+          hsl(218, 41%, 19%) 80%,
+          transparent 100%),
+        radial-gradient(1250px circle at 100% 100%,
+          hsl(218, 41%, 45%) 15%,
+          hsl(218, 41%, 30%) 35%,
+          hsl(218, 41%, 20%) 75%,
+          hsl(218, 41%, 19%) 80%,
+          transparent 100%);
+    }
+
+    #radius-shape-1 {
+      height: 220px;
+      width: 220px;
+      top: -60px;
+      left: -130px;
+      background: radial-gradient(#44006b, #ad1fff);
+      overflow: hidden;
+    }
+
+    #radius-shape-2 {
+      border-radius: 38% 62% 63% 37% / 70% 33% 67% 30%;
+      bottom: -60px;
+      right: -110px;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(#44006b, #ad1fff);
+      overflow: hidden;
+    }
+
+    .bg-glass {
+      background-color: hsla(0, 0%, 100%, 0.9) !important;
+      backdrop-filter: saturate(200%) blur(25px);
+    }
+  </style>
+
+<section class="vh-100">
+  <div class="container py-5 h-100">
+    <div class="row d-flex align-items-center justify-content-center h-100">
+      <div class="col-md-8 col-lg-7 col-xl-6">
+        <img src="static/dist/img/Mediamodifier-Design-Template.png"
+          class="img-fluid" alt="Phone image">
+      </div>
+
+      <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
+        <div>
+          <h2 class="fw-bold mb-2 text-uppercase">STAFF SIGNUP</h2>
         </div>
 
-        <div class="row">
-          <!-- /.col -->
-          <div class="col-12">
-            <button type="submit" class="btn btn-primary btn-block" >Signup Staff</button>
-          </div><!-- /.col -->
+      <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
+        
+          <form action="/do_staff_signup" method="post" id="demo-form">
+            {% csrf_token %}
+              <div class="form-outline mb-4">
+                <input type="email" class="form-control form-control-lg" placeholder="Email" name="email">
+              </div>
 
-        </div>
-        <div class="row">
-          {% if messages %}
-         <div class="col-12">
-            {% for message in messages %}
-            {% if message.tags == 'error' %}
-            <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+          <!-- Password input -->
+          <div class="form-outline mb-4">
+            <input type="text" class="form-control form-control-lg" placeholder="Username" name="username">
+          </div>
+
+          <!-- Password input -->
+          <div class="form-outline mb-4">
+            <input type="password" class="form-control form-control-lg" placeholder="Password" name="password">
+          </div>
+
+          <div class="form-outline mb-4">
+            <input type="text" class="form-control form-control-lg" placeholder="Address" name="address">
+          </div>
+
+          <div class="d-flex justify-content-around align-items-center mb-4">
+             
+          </div>
+
+          <!-- Submit button -->
+          <button type="submit" class="btn btn-primary btn-lg btn-block">Sign in</button>
+
+          <div class="divider d-flex align-items-center my-4">
+            <span class="px-2 small text-muted font-weight-bold text-muted">OR</span>
+          </div>
+
+          <a class="btn btn-primary btn-lg btn-block" style="background-color: #3b5998" href="/"
+            role="button">
+            Back to Login Page <i class="fa-solid fa-arrow-right-to-bracket"></i> 
+          </a>
+
+
+          <div class="row">
+            {% if messages %}
+           <div class="col-12">
+              {% for message in messages %}
+              {% if message.tags == 'error' %}
+              <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+              {% endif %}
+              {% endfor %}
+            </div>
             {% endif %}
-            {% endfor %}
           </div>
-          {% endif %}
-        </div>
-      </form>
-
-      <!-- /.social-auth-links -->
-
+        </form>
+      
+      </div>
     </div>
-    <!-- /.login-card-body -->
   </div>
-</div>
-<!-- /.login-box -->
+</section>
 
 <!-- jQuery -->
 <script src="{% static "plugins/jquery/jquery.min.js" %}"></script>
@@ -99,6 +140,8 @@
 <!-- AdminLTE App -->
 <script src="{% static "dist/js/adminlte.min.js" %}"></script>
 <!-- <script src="https://www.google.com/recaptcha/api.js" async defer></script> -->
+
+<script src="https://kit.fontawesome.com/44dea594b7.js" crossorigin="anonymous"></script>
 
 </body>
 </html>
