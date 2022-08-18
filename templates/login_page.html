@@ -20,81 +20,84 @@
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
 
-<body class="hold-transition login-page">
-<div class="login-box">
-  <div class="login-logo">
-    <h2><b>COLLEGE MANAGEMENT SYSTEM</b></h2>
-  </div>
+<section class="vh-100">
+  <div class="container py-5 h-100">
+    <div class="row d-flex align-items-center justify-content-center h-100">
+      <div class="col-md-8 col-lg-7 col-xl-6">
+        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
+          class="img-fluid" alt="Phone image">
+      </div>
+      <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
+        
+          <!-- Email input
+          <div class="form-outline mb-4">
+            <input type="email" id="form1Example13" class="form-control form-control-lg" />
+            <label class="form-label" for="form1Example13">Email address</label>
+          </div> -->
 
-  <!-- /.login-logo -->
-  <div class="card">
-    <div class="card-body login-card-body">
-      <h3 class="login-box-msg"><b>Sign In</b></h3>
+          <form action="/doLogin" method="post" id="demo-form">
+            {% csrf_token %}
+              <div class="form-outline mb-4">
+                <input type="email" class="form-control form-control-lg" placeholder="Email" name="email">
+              </div>
 
-      <form action="/doLogin" method="post" id="demo-form">
-      {% csrf_token %}
-        <div class="input-group mb-3">
-          <input type="email" class="form-control" placeholder="Email" name="email">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-envelope"></span>
+          <!-- Password input -->
+          <div class="form-outline mb-4">
+            <input type="password" class="form-control form-control-lg" placeholder="Password" name="password">
+          </div>
+
+          <div class="d-flex justify-content-around align-items-center mb-4">
+            <!-- Checkbox -->
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="form1Example3" checked />
+              <label class="form-check-label" for="form1Example3"> Remember me </label>
             </div>
+            <a href="{% url 'password_reset' %}">Forgot password?</a>
           </div>
-        </div>
 
-        <div class="input-group mb-3">
-          <input type="password" class="form-control" placeholder="Password" name="password">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-lock"></span>
+          <!-- Submit button -->
+          <button type="submit" class="btn btn-primary btn-lg btn-block">Sign in</button>
+
+          <div class="divider d-flex align-items-center my-4">
+            <p class="text-center fw-bold mx-3 mb-0 text-muted">OR SIGN UP</p>
+          </div>
+
+          <a class="btn btn-primary btn-lg btn-block" style="background-color: #3b5998" href="{% url 'signup_admin' %}"
+            role="button">
+            <i class="fa-solid fa-user-shield"></i> Admin Signup
+          </a>
+          <br>
+
+          <a class="btn btn-primary btn-lg btn-block" style="background-color: #55acee" href="{% url 'signup_staff' %}"
+            role="button">
+            <i class="fa-solid fa-user-check"></i> Staff Signup</a>
+          <br>
+
+          <a class="btn btn-primary btn-lg btn-block" style="background-color: #55acee" href="{% url 'signup_student' %}"
+            role="button">
+            <i class="fa-solid fa-user-graduate"></i> Student Signup</a>
+        
+          <div class="row">
+            {% if messages %}
+            <div class="col-12">
+              {% for message in messages %}
+              {% if message.tags == 'error' %}
+              <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+              {% endif %}
+              {% if message.tags == 'success' %}
+  
+              <div class="alert alert-success" style="margin-top:10px">{{ message }}</div>
+              {% endif %}
+              {% endfor %}
             </div>
-          </div>
-        </div>
-        <!-- <div class="input-group mb-3">
-                <div class="g-recaptcha" data-sitekey="6LeWtqUZAAAAAMO6YmxX5_XWel9hLWrb_iEiff26"></div>
-        </div> -->
-        <div class="row">
-          <!-- /.col -->
-          <div class="col-12">
-            <button type="submit" class="btn btn-primary btn-block" >Sign In</button>
-          </div><!-- /.col -->
-           <div class="col-12 text-center">
-             <a href="{% url 'password_reset' %}">Reset Password</a>
-          </div><!-- /.col -->
-            <div class="col-12 text-center">
-             <a href="{% url 'signup_admin' %}">Admin Signup</a>
-          </div><!-- /.col -->
-                        <div class="col-12 text-center">
-             <a href="{% url 'signup_staff' %}">Staff Signup</a>
-          </div><!-- /.col -->
-                                    <div class="col-12 text-center">
-             <a href="{% url 'signup_student' %}">Student Signup</a>
-          </div><!-- /.col -->
-        </div>
-
-        <div class="row">
-          {% if messages %}
-         <div class="col-12">
-            {% for message in messages %}
-            {% if message.tags == 'error' %}
-            <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
             {% endif %}
-            {% if message.tags == 'success' %}
-
-            <div class="alert alert-success" style="margin-top:10px">{{ message }}</div>
-            {% endif %}
-            {% endfor %}
           </div>
-          {% endif %}
-        </div>
-      </form>
-
-      <!-- /.social-auth-links -->
-
+        </form>
+      
+      </div>
     </div>
   </div>
-</div>
-<!-- /.login-box -->
+</section>
 
 <!-- jQuery -->
 <script src="{% static "plugins/jquery/jquery.min.js" %}"></script>
@@ -103,6 +106,8 @@
 <!-- AdminLTE App -->
 <script src="{% static "dist/js/adminlte.min.js" %}"></script>
 <!-- <script src="https://www.google.com/recaptcha/api.js" async defer></script> -->
+
+<script src="https://kit.fontawesome.com/44dea594b7.js" crossorigin="anonymous"></script>
 
 </body>
 </html>
