@@ -3,6 +3,7 @@
 Home
 {% endblock page_title %}
 {% block main_content %}
+
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
@@ -23,14 +24,16 @@ Home
               <div class="inner">
                 <h3>{{ total_attendance }}</h3>
 
-                <p>Total Attendance</p>
+                <p style="font-family: Lucida Console	
+                ; margin-top: 5px; font-weight: bold;">Total Attendance</p>
               </div>
               <div class="icon">
-                <i class="ion ion-stats-bars"></i>
+                <i class="fa-solid fa-clipboard-user"></i>
               </div>
               <a href="{% url 'student_view_attendance' %}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
+
           <!-- ./col -->
           <div class="col-lg-3 col-6">
             <!-- small box -->
@@ -38,14 +41,16 @@ Home
               <div class="inner">
                 <h3>{{ attendance_absent }}</h3>
 
-                <p>Absent</p>
+                <p style="font-family: Lucida Console	
+                ; margin-top: 5px; font-weight: bold;">Absent</p>
               </div>
-              <div class="icon">
-                <i class="ion ion-stats-bars"></i>
+              <div class="icon">              
+                <i class="fa-solid fa-file-pen"></i>
               </div>
               <a href="{% url 'student_view_attendance' %}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
+
           <!-- ./col -->
           <div class="col-lg-3 col-6">
             <!-- small box -->
@@ -53,14 +58,16 @@ Home
               <div class="inner">
                 <h3>{{ attendance_present }}</h3>
 
-                <p>Present</p>
+                <p style="font-family: Lucida Console	
+                ; margin-top: 5px; font-weight: bold;">Present</p>
               </div>
               <div class="icon">
-                <i class="ion ion-stats-bars"></i>
+                <i class="fa-solid fa-file-circle-check"></i>
               </div>
               <a href="{% url 'student_view_attendance' %}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
+
           <!-- ./col -->
           <div class="col-lg-3 col-6">
             <!-- small box -->
@@ -68,16 +75,18 @@ Home
               <div class="inner">
                 <h3>{{ subjects }}</h3>
 
-                <p>Total Subjects</p>
+                <p style="font-family: Lucida Console	
+                ; margin-top: 5px; font-weight: bold;">Total Subjects</p>
               </div>
               <div class="icon">
-                <i class="ion ion-pie-graph"></i>
+                <i class="fa-solid fa-book-open"></i>
               </div>
               <a href="#" class="small-box-footer">&nbsp;</a>
             </div>
           </div>
           <!-- ./col -->
         </div>
+
           <div class="row">
               <div class="col-lg-6">
                   <div class="card card-danger">
@@ -97,6 +106,7 @@ Home
                     </div>
                     <!-- /.card -->
               </div>
+
               <div class="col-lg-6">
                   <div class="card card-success">
                       <div class="card-header">
@@ -120,6 +130,7 @@ Home
           </div>
       </div>
     </section>
+
     <!-- /.content -->
 {% endblock main_content %}
 {% block custom_js %}

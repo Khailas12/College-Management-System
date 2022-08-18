@@ -36,6 +36,7 @@ def student_home(request):
             attendance_id__in=attendance, status=True, student_id=student_obj.id).count()
         attendance_absent_count = AttendanceReport.objects.filter(
             attendance_id__in=attendance, status=False, student_id=student_obj.id).count()
+        
         subject_name.append(subject.subject_name)
         data_present.append(attendance_present_count)
         data_absent.append(attendance_absent_count)

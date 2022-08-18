@@ -27,12 +27,10 @@
   <link rel="stylesheet" href="{% static "plugins/summernote/summernote-bs4.css" %}">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-  
-  <!--this is for fontawesome-->
-  <script src="https://kit.fontawesome.com/44dea594b7.js" crossorigin="anonymous"></script>
 
     {% block custom_css %}{% endblock custom_css %}
 </head>
+
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
 
@@ -44,13 +42,23 @@
         <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
       </li>
     </ul>
-    <h4 style="margin-left: 10px;margin-top: 5px;">Student Panel</h4>
+
+    <div class="col-sm-6">
+      <h1 style="margin-left:10px; font-family: Franklin Gothic Medium	
+      ; margin-top: 5px;">STUDENT PANEL <i class="fa-solid fa-user-graduate"></i></h1> 
+
+    </div>
+    <div class="icon">
+    </div>
+
     <ul class="navbar-nav ml-auto">
       <!-- Messages Dropdown Menu -->
       <li class="nav-item">
-        <a class="nav-link" href="{% url 'logout' %}">
-          Logout
-        </a>
+         <ol class="breadcrumb float-sm-right"> 
+          <a href="{% url 'logout' %}"> Logout <i class="fa-solid fa-right-from-bracket"></i>
+          </a>
+          </li>
+        </ol>
       </li>
     </ul>
 
@@ -117,6 +125,9 @@
 <script src="{% static "dist/js/pages/dashboard.js" %}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{% static "dist/js/demo.js" %}"></script>
+
+<!--this is for fontawesome-->
+<script src="https://kit.fontawesome.com/44dea594b7.js" crossorigin="anonymous"></script>
 
 {% block custom_js %}
 {% endblock custom_js %}
