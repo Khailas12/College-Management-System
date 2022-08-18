@@ -1,4 +1,3 @@
-
 from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.core.files.storage import FileSystemStorage
@@ -140,6 +139,7 @@ def do_staff_signup(request):
             username=username, password=password, email=email, user_type=2)
         user.staffs.address = address
         user.save()
+        
         messages.success(request, "Successfully Created Staff")
         return HttpResponseRedirect(reverse("show_login"))
 
