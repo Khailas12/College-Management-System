@@ -9,6 +9,7 @@ urlpatterns = [
     path('add_staff_save', views.add_staff_save, name="add_staff_save"),
     path('add_course/', views.add_course, name="add_course"),
     path('add_course_save', views.add_course_save, name="add_course_save"),
+    
     path('add_student', views.add_student, name="add_student"),
     path('add_student_save', views.add_student_save, name="add_student_save"),
     path('add_subject', views.add_subject, name="add_subject"),

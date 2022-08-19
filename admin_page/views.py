@@ -156,10 +156,10 @@ def add_student_save(request):
             course_id = form.cleaned_data["course"]
             sex = form.cleaned_data["sex"]
 
-            profile_pic = request.FILES['profile_pic']
+            # profile_pic = request.FILES['profile_pic']
             fs = FileSystemStorage()
-            filename = fs.save(profile_pic.name, profile_pic)
-            profile_pic_url = fs.url(filename)
+            # filename = fs.save(profile_pic.name, profile_pic)
+            # profile_pic_url = fs.url(filename)
 
             try:
                 user = CustomUser.objects.create_user(
@@ -170,7 +170,7 @@ def add_student_save(request):
                 session_year = SessionYearModel.object.get(id=session_year_id)
                 user.students.session_year_id = session_year
                 user.students.gender = sex
-                user.students.profile_pic = profile_pic_url
+                # user.students.profile_pic = profile_pic_url
                 user.save()
                 
                 messages.success(request, "Successfully Added Student")
