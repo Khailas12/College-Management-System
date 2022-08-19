@@ -9,7 +9,15 @@ from main_system import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('demo',views.showDemoPage),
+    # path('demo',views.showDemoPage),
+    path('accounts/',include('django.contrib.auth.urls')),  # password reset
+    
+    # apps
+    path('admin_page/', include('admin_page.urls')),
+    path('staff/', include('staff.urls')),
+    path('student/', include('student.urls')),
+    
+    
     path('signup_admin',views.signup_admin,name="signup_admin"),
     
     path('signup_student',views.signup_student,name="signup_student"),
@@ -19,19 +27,14 @@ urlpatterns = [
     path('do_staff_signup',views.do_staff_signup,name="do_staff_signup"),
     path('do_signup_student',views.do_signup_student,name="do_signup_student"),
     
-    path('accounts/',include('django.contrib.auth.urls')),
+    
     path('',views.ShowLoginPage,name="show_login"),
     path('get_user_details', views.GetUserDetails),
     path('logout_user', views.logout_user,name="logout"),
     path('doLogin',views.doLogin,name="do_login"),
     
                   
-    path('admin_page/', include('admin_page.urls')),
-    path('staff/', include('staff.urls')),
-    path('student/', include('student.urls')),
     
     path('firebase-messaging-sw.js', views.showFirebaseJS,name="show_firebase_js"),
-    
-    path('testurl/',views.Testurl)
     
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)+static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)
