@@ -173,7 +173,7 @@ def add_student_save(request):
                 # user.students.profile_pic = profile_pic_url
                 user.save()
                 
-                messages.success(request, "Successfully Added Student")
+                messages.success(request, "Student Added Succesfully")
                 return HttpResponseRedirect(reverse("add_student"))
             
             except:
