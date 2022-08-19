@@ -15,7 +15,7 @@ Edit Staff  | Username : {{ staff.admin.username }} |  #ID : {{ staff.admin.id }
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form role="form" action="/edit_staff_save" method="post">
+              <form role="form" action="/admin_page/edit_staff_save" method="post">
                   {% csrf_token %}
                 <div class="card-body">
                   <div class="form-group">

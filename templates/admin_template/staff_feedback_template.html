@@ -22,14 +22,14 @@ Staff Feedback
                             <th>Staff ID</th>
                             <th>Staff Name</th>
                             <th>Message</th>
-                            <th>Sended On</th>
+                            <th>Sent On</th>
                             <th>Reply</th>
                         </tr>
                         {% for feedback in feedbacks %}
                         <tr>
                             <td>{{ feedback.id }}</td>
                             <td>{{ feedback.staff_id.admin.id }}</td>
-                            <td>{{ feedback.staff_id.admin.first_name }} {{ feedback.staff_id.admin.last_name }}</td>
+                            <td>{{ feedback.staff_id.admin.username }} {{ feedback.staff_id.admin.last_name }}</td>
                             <td>{{ feedback.feedback }}</td>
                             <td>{{ feedback.created_at }}</td>
                             <td>

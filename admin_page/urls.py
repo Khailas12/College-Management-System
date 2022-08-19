@@ -17,6 +17,7 @@ urlpatterns = [
     
     path('manage_staff', views.manage_staff, name="manage_staff"),
     path('manage_student', views.manage_student, name="manage_student"),
+    
     path('manage_course', views.manage_course, name="manage_course"),
     path('manage_subject', views.manage_subject, name="manage_subject"),
     
