@@ -9,10 +9,6 @@ from management_app.EmailBackEnd import EmailBackEnd
 from management_app.models import CustomUser, Courses, SessionYearModel
 
 
-def showDemoPage(request):
-    return render(request, "demo.html")
-
-
 def ShowLoginPage(request):
     return render(request, "login_page.html")
 
@@ -89,7 +85,8 @@ def signup_admin(request):
 def signup_student(request):
     courses = Courses.objects.all()
     session_years = SessionYearModel.object.all()
-    return render(request, "signup_student_page.html", {"courses": courses, "session_years": session_years})
+    context = {"courses": courses, "session_years": session_years}
+    return render(request, "signup_student_page.html", context)
 
 
 def signup_staff(request):
@@ -130,7 +127,6 @@ def do_staff_signup(request):
         
         user.staffs.address = address
         user.staffs.gender = sex
-        
         user.save()
         
         messages.success(request, "Successfully Created Staff")
@@ -151,11 +147,8 @@ def do_signup_student(request):
     session_year_id = request.POST.get("session_year")
     course_id = request.POST.get("course")
     sex = request.POST.get("sex")
-    profile_pic = request.POST.get('profile_pic')
     
     fs = FileSystemStorage()
-    # filename = fs.save(profile_pic.name, profile_pic)
-    # profile_pic_url = fs.url(filename)
 
     user = CustomUser.objects.create_user(
         username=username, password=password, email=email,
@@ -168,7 +161,6 @@ def do_signup_student(request):
     session_year = SessionYearModel.object.get(id=session_year_id)
     user.students.session_year_id = session_year
     user.students.gender = sex
-    # user.students.profile_pic = profile_pic_url
     user.save()
     
     messages.success(request, "Successfully Added Student")

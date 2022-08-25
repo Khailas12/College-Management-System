@@ -1,5 +1,4 @@
 import json
-
 import requests
 from django.contrib import messages
 from django.core.files.storage import FileSystemStorage
@@ -9,7 +8,6 @@ from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 
 from student.forms import AddStudentForm, EditStudentForm
-
 from management_app.models import (
     CustomUser, Staffs, Courses, Subjects, Students, SessionYearModel,
     FeedBackStudent, FeedBackStaffs, LeaveReportStudent, LeaveReportStaff, Attendance, AttendanceReport, NotificationStudent, NotificationStaffs
@@ -101,9 +99,11 @@ def add_staff_save(request):
         
         try:
             user = CustomUser.objects.create_user(
-                username=username, password=password, email=email, last_name=last_name, first_name=first_name, user_type=2)
+                username=username, password=password, email=email, 
+                last_name=last_name, first_name=first_name, user_type=2)
             user.staffs.address = address
             user.save()
+            
             messages.success(request, "Successfully Added Staff")
             return HttpResponseRedirect(reverse("add_staff"))
         
@@ -125,6 +125,7 @@ def add_course_save(request):
         try:
             course_model = Courses(course_name=course)
             course_model.save()
+            
             messages.success(request, "Successfully Added Course")
             return HttpResponseRedirect(reverse("add_course"))
         
@@ -136,7 +137,8 @@ def add_course_save(request):
 
 def add_student(request):
     form = AddStudentForm()
-    return render(request, "admin_template/add_student_template.html", {"form": form})
+    context = {"form": form}
+    return render(request, "admin_template/add_student_template.html", context)
 
 
 def add_student_save(request):
@@ -163,7 +165,8 @@ def add_student_save(request):
 
             try:
                 user = CustomUser.objects.create_user(
-                    username=username, password=password, email=email, last_name=last_name, first_name=first_name, user_type=3)
+                    username=username, password=password, email=email, 
+                    last_name=last_name, first_name=first_name, user_type=3)
                 user.students.address = address
                 course_obj = Courses.objects.get(id=course_id)
                 user.students.course_id = course_obj
@@ -181,13 +184,15 @@ def add_student_save(request):
                 return HttpResponseRedirect(reverse("add_student"))
         else:
             form = AddStudentForm(request.POST)
-            return render(request, "admin_template/add_student_template.html", {"form": form})
+            context = {"form": form}
+            return render(request, "admin_template/add_student_template.html", context)
 
 
 def add_subject(request):
     courses = Courses.objects.all()
     staffs = CustomUser.objects.filter(user_type=2)
-    return render(request, "admin_template/add_subject_template.html", {"staffs": staffs, "courses": courses})
+    context = {"staffs": staffs, "courses": courses}
+    return render(request, "admin_template/add_subject_template.html", context)
 
 
 def add_subject_save(request):
@@ -202,7 +207,7 @@ def add_subject_save(request):
         staff = CustomUser.objects.get(id=staff_id)
 
         try:
-            subject = Subjects(subject_name=subject_name,course_id=course, staff_id=staff)
+            subject = Subjects(subject_name=subject_name, course_id=course, staff_id=staff)
             subject.save()
             
             messages.success(request, "Successfully Added Subject")
@@ -215,27 +220,32 @@ def add_subject_save(request):
 
 def manage_staff(request):
     staffs = Staffs.objects.all()
-    return render(request, "admin_template/manage_staff_template.html", {"staffs": staffs})
+    context = {"staffs": staffs}
+    return render(request, "admin_template/manage_staff_template.html", context)
 
 
 def manage_student(request):
     students = Students.objects.all()
-    return render(request, "admin_template/manage_student_template.html", {"students": students})
+    context = {"students": students}
+    return render(request, "admin_template/manage_student_template.html", context)
 
 
 def manage_course(request):
     courses = Courses.objects.all()
-    return render(request, "admin_template/manage_course_template.html", {"courses": courses})
+    context = {"courses": courses}
+    return render(request, "admin_template/manage_course_template.html", context)
 
 
 def manage_subject(request):
     subjects = Subjects.objects.all()
-    return render(request, "admin_template/manage_subject_template.html", {"subjects": subjects})
+    context = {"subjects": subjects}
+    return render(request, "admin_template/manage_subject_template.html", context)
 
 
 def edit_staff(request, staff_id):
     staff = Staffs.objects.get(admin=staff_id)
-    return render(request, "admin_template/edit_staff_template.html", {"staff": staff, "id": staff_id})
+    context = {"staff": staff, "id": staff_id}
+    return render(request, "admin_template/edit_staff_template.html", context)
 
 
 def edit_staff_save(request):
@@ -283,10 +293,8 @@ def edit_student(request, student_id):
     form.fields['sex'].initial = student.gender
     form.fields['session_year_id'].initial = student.session_year_id.id
     
-    return render(
-        request, "admin_template/edit_student_template.html",
-        {"form": form, "id": student_id, "username": student.admin.username}
-    )
+    context = {"form": form, "id": student_id, "username": student.admin.username}
+    return render(request, "admin_template/edit_student_template.html", context)
 
 
 def edit_student_save(request):
@@ -310,14 +318,14 @@ def edit_student_save(request):
             course_id = form.cleaned_data["course"]
             sex = form.cleaned_data["sex"]
 
-            if request.FILES.get('profile_pic', False):
-                profile_pic = request.FILES['profile_pic']
-                fs = FileSystemStorage()
-                filename = fs.save(profile_pic.name, profile_pic)
-                profile_pic_url = fs.url(filename)
+            # if request.FILES.get('profile_pic', False):
+            #     profile_pic = request.FILES['profile_pic']
+            #     fs = FileSystemStorage()
+            #     filename = fs.save(profile_pic.name, profile_pic)
+            #     profile_pic_url = fs.url(filename)
                 
-            else:
-                profile_pic_url = None
+            # else:
+            #     profile_pic_url = None
 
             try:
                 user = CustomUser.objects.get(id=student_id)
@@ -335,8 +343,8 @@ def edit_student_save(request):
                 course = Courses.objects.get(id=course_id)
                 student.course_id = course
                 
-                if profile_pic_url != None:
-                    student.profile_pic = profile_pic_url
+                # if profile_pic_url != None:
+                #     student.profile_pic = profile_pic_url
                 student.save()
                 del request.session['student_id']
                 
@@ -350,22 +358,19 @@ def edit_student_save(request):
         else:
             form = EditStudentForm(request.POST)
             student = Students.objects.get(admin=student_id)
-            return render(
-                request, "admin_template/edit_student_template.html",
-                {"form": form, "id": student_id, 
+            
+            context = {"form": form, "id": student_id, 
                 "username": student.admin.username}
-            )
+            return render(request, "admin_template/edit_student_template.html", context)
 
 
 def edit_subject(request, subject_id):
     subject = Subjects.objects.get(id=subject_id)
     courses = Courses.objects.all()
     staffs = CustomUser.objects.filter(user_type=2)
-    return render(
-        request, "admin_template/edit_subject_template.html",
-        {"subject": subject, "staffs": staffs, 
-        "courses": courses, "id": subject_id}
-    )
+    
+    context = {"subject": subject, "staffs": staffs, "courses": courses, "id": subject_id}
+    return render(request, "admin_template/edit_subject_template.html", context)
 
 
 def edit_subject_save(request):
@@ -396,7 +401,9 @@ def edit_subject_save(request):
 
 def edit_course(request, course_id):
     course = Courses.objects.get(id=course_id)
-    return render(request, "admin_template/edit_course_template.html", {"course": course, "id": course_id})
+    
+    context = {"course": course, "id": course_id}
+    return render(request, "admin_template/edit_course_template.html", context)
 
 
 def edit_course_save(request):
@@ -436,6 +443,7 @@ def add_session_save(request):
             sessionyear = SessionYearModel(
                 session_start_year=session_start_year, session_end_year=session_end_year)
             sessionyear.save()
+            
             messages.success(request, "Successfully Added Session")
             return HttpResponseRedirect(reverse("manage_session"))
         
@@ -470,12 +478,14 @@ def check_username_exist(request):
 
 def staff_feedback_message(request):
     feedbacks = FeedBackStaffs.objects.all()
-    return render(request, "admin_template/staff_feedback_template.html", {"feedbacks": feedbacks})
+    context = {"feedbacks": feedbacks}
+    return render(request, "admin_template/staff_feedback_template.html", context)
 
 
 def student_feedback_message(request):
     feedbacks = FeedBackStudent.objects.all()
-    return render(request, "admin_template/student_feedback_template.html", {"feedbacks": feedbacks})
+    context = {"feedbacks": feedbacks}
+    return render(request, "admin_template/student_feedback_template.html", context)
 
 
 @csrf_exempt
@@ -510,12 +520,14 @@ def staff_feedback_message_replied(request):
 
 def staff_leave_view(request):
     leaves = LeaveReportStaff.objects.all()
-    return render(request, "admin_template/staff_leave_view.html", {"leaves": leaves})
+    context = {"leaves": leaves}
+    return render(request, "admin_template/staff_leave_view.html", context)
 
 
 def student_leave_view(request):
     leaves = LeaveReportStudent.objects.all()
-    return render(request, "admin_template/student_leave_view.html", {"leaves": leaves})
+    context =   {"leaves": leaves}
+    return render(request, "admin_template/student_leave_view.html", context)
 
 
 def student_approve_leave(request, leave_id):
@@ -583,8 +595,9 @@ def admin_get_attendance_student(request):
     list_data = []
 
     for student in attendance_data:
-        data_small = {"id": student.student_id.admin.id, "name": student.student_id.admin.first_name +
-                      " "+student.student_id.admin.last_name, "status": student.status}
+        data_small = {"id": student.student_id.admin.id,
+                    "name": student.student_id.admin.first_name + " "+student.student_id.admin.last_name, 
+                    "status": student.status}
         list_data.append(data_small)
         
     return JsonResponse(json.dumps(list_data), content_type="application/json", safe=False)
@@ -592,7 +605,8 @@ def admin_get_attendance_student(request):
 
 def admin_profile(request):
     user = CustomUser.objects.get(id=request.user.id)
-    return render(request, "admin_template/admin_profile.html", {"user": user})
+    context = {"user": user}    
+    return render(request, "admin_template/admin_profile.html", context)
 
 
 def admin_profile_save(request):
@@ -620,12 +634,14 @@ def admin_profile_save(request):
 
 def admin_send_notification_student(request):
     students = Students.objects.all()
-    return render(request, "admin_template/student_notification.html", {"students": students})
+    context = {"students": students}
+    return render(request, "admin_template/student_notification.html", context)
 
 
 def admin_send_notification_staff(request):
     staffs = Staffs.objects.all()
-    return render(request, "admin_template/staff_notification.html", {"staffs": staffs})
+    context = {"staffs": staffs}
+    return render(request, "admin_template/staff_notification.html", context)
 
 
 @csrf_exempt
@@ -634,6 +650,7 @@ def send_student_notification(request):
     message = request.POST.get("message")
     student = Students.objects.get(admin=id)
     token = student.fcm_token
+    
     url = "https://fcm.googleapis.com/fcm/send"
     
     body = {

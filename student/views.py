@@ -1,5 +1,4 @@
 import datetime
-
 from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
@@ -47,39 +46,6 @@ def student_home(request):
         "attendance_present": attendance_present, "subjects": subjects, "data_name": subject_name, 
         "data1": data_present, "data2": data_absent, "class_room": class_room}
     )
-
-
-def join_class_room(request, subject_id, session_year_id):
-    session_year_obj = SessionYearModel.object.get(id=session_year_id)
-    subjects = Subjects.objects.filter(id=subject_id)
-    
-    if subjects.exists():
-        session = SessionYearModel.object.filter(id=session_year_obj.id)
-        
-        if session.exists():
-            subject_obj = Subjects.objects.get(id=subject_id)
-            course = Courses.objects.get(id=subject_obj.course_id.id)
-            check_course = Students.objects.filter(
-                admin=request.user.id, course_id=course.id)
-            
-            if check_course.exists():
-                session_check = Students.objects.filter(
-                    admin=request.user.id, session_year_id=session_year_obj.id)
-                
-                if session_check.exists():
-                    onlineclass = OnlineClassRoom.objects.get(
-                        session_years=session_year_id, subject=subject_id)
-                    
-                    return render(request, "student_template/join_class_room_start.html", {"username": request.user.username, "password": onlineclass.room_pwd, "roomid": onlineclass.room_name})
-
-                else:
-                    return HttpResponse("This Online Session is Not For You")
-            else:
-                return HttpResponse("This Subject is Not For You")
-        else:
-            return HttpResponse("Session Year Not Found")
-    else:
-        return HttpResponse("Subject Not Found")
 
 
 def student_view_attendance(request):
@@ -134,6 +100,13 @@ def student_apply_leave_save(request):
             messages.error(request, "Failed To Apply for Leave")
             return HttpResponseRedirect(reverse("student_apply_leave"))
 
+
+def student_subject(request):
+    student_obj = Students.objects.get(admin=request.user.id)
+
+    subjects = Subjects.objects.filter(course_id=student_obj.course_id)
+    context = {"subjects": subjects}
+    return render(request, "student_template/subject_template.html", context)
 
 def student_feedback(request):
     staff_id = Students.objects.get(admin=request.user.id)

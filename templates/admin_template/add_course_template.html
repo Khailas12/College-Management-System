@@ -3,6 +3,7 @@
 Add Course
 {% endblock page_title %}
 {% block main_content %}
+
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
@@ -14,6 +15,7 @@ Add Course
                 <h3 class="card-title">Add Course</h3>
               </div>
               <!-- /.card-header -->
+
               <!-- form start -->
               <form role="form" action="/admin_page/add_course_save" method="post">
                   {% csrf_token %}
@@ -22,6 +24,7 @@ Add Course
                     <label>Course Name </label>
                     <input type="text" class="form-control" name="course" placeholder="Enter Course">
                   </div>
+
                    <div class="form-group">
                       {% if messages %}
                         {% for message in messages %}
@@ -44,10 +47,7 @@ Add Course
                 </div>
               </form>
             </div>
-            <!-- /.card -->
-
-
-
+            
           </div>
           </div>
       </div>

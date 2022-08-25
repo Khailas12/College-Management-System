@@ -9,7 +9,8 @@ urlpatterns = [
     
     path('student_view_attendance', views.student_view_attendance, name="student_view_attendance"),
     path('student_view_attendance_post', views.student_view_attendance_post, name="student_view_attendance_post"),
-    
+    path('student_subject', views.student_subject, name="student_subject"),
+
     path('student_apply_leave', views.student_apply_leave, name="student_apply_leave"),
     path('student_apply_leave_save', views.student_apply_leave_save, name="student_apply_leave_save"),
     

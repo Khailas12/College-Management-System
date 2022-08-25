@@ -21,6 +21,8 @@ urlpatterns = [
          name="save_attendance_data"),
     path('save_updateattendance_data', views.save_updateattendance_data,
          name="save_updateattendance_data"),
+    
+    path('subject', views.subject, name="subject"),
 
     # leave
     path('staff_apply_leave', views.staff_apply_leave, name="staff_apply_leave"),

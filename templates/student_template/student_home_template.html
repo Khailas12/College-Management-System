@@ -7,7 +7,7 @@ Home
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-            {% if class_room.count > 0 %}
+            <!-- {% if class_room.count > 0 %}
                     <div class="row">
                         <div class="col-lg-12 form-group" >
                             {% for class_single in class_room %}
@@ -15,7 +15,7 @@ Home
                             {% endfor %}
                         </div>
                     </div>
-              {% endif %}
+              {% endif %} -->
           <div class="row">
 
           <div class="col-lg-3 col-6">
@@ -76,12 +76,12 @@ Home
                 <h3>{{ subjects }}</h3>
 
                 <p style="font-family: Lucida Console	
-                ; margin-top: 5px; font-weight: bold;">Total Subjects</p>
+                ; margin-top: 5px; font-weight: bold;">Total Subject</p>
               </div>
               <div class="icon">
                 <i class="fa-solid fa-book-open"></i>
               </div>
-              <a href="#" class="small-box-footer">&nbsp;</a>
+              <a href="{% url 'student_subject' %}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->

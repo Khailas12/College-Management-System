@@ -4,7 +4,6 @@ from django.utils.deprecation import MiddlewareMixin
 
 
 class LoginCheckMiddleWare(MiddlewareMixin):
-
     def process_view(self, request, view_func, view_args, view_kwargs):
         modulename = view_func.__module__
         print(modulename)
@@ -44,7 +43,6 @@ class LoginCheckMiddleWare(MiddlewareMixin):
                 else:
                     return HttpResponseRedirect(reverse("student"))
             else:
-                
                 return HttpResponseRedirect(reverse("show_login"))
 
         else:

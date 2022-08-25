@@ -4,6 +4,7 @@ Edit Course |  Course ID : {{ course.id }}
 {% endblock page_title %}
 {% block main_content %}
     <!-- Main content -->
+
     <section class="content">
       <div class="container-fluid">
           <div class="row">
@@ -14,6 +15,7 @@ Edit Course |  Course ID : {{ course.id }}
                 <h3 class="card-title">Edit Course</h3>
               </div>
               <!-- /.card-header -->
+
               <!-- form start -->
               <form role="form" action="/admin_page/edit_course_save" method="post">
                   {% csrf_token %}
@@ -23,12 +25,14 @@ Edit Course |  Course ID : {{ course.id }}
                     <input type="text" class="form-control" name="course" placeholder="Enter Course" value="{{ course.course_name }}">
                     <input type="hidden"  name="course_id"  value="{{ course.id }}">
                   </div>
+
                    <div class="form-group">
                       {% if messages %}
                         {% for message in messages %}
                         {% if message.tags == 'error' %}
                         <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
                         {% endif %}
+                        
                         {% if message.tags == 'success' %}
                         <div class="alert alert-success" style="margin-top:10px">{{ message }}</div>
                         {% endif %}
@@ -46,12 +50,9 @@ Edit Course |  Course ID : {{ course.id }}
             </div>
             <!-- /.card -->
 
-
-
           </div>
           </div>
       </div>
     </section>
     <!-- /.content -->
 {% endblock main_content %}
-

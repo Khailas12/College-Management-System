@@ -4,6 +4,7 @@ View Update Attendance
 {% endblock page_title %}
 {% block main_content %}
     <!-- Main content -->
+    
     <section class="content">
       <div class="container-fluid">
                     <div class="row">
@@ -15,6 +16,7 @@ View Update Attendance
               </div>
               <!-- /.card-header -->
               <!-- form start -->
+              
                 <div class="card-body">
                    <div class="form-group">
                     <label>Subject </label>
@@ -24,6 +26,7 @@ View Update Attendance
                         {% endfor %}
                     </select>
                   </div>
+
                   <div class="form-group">
                     <label>Session Year </label>
                     <select class="form-control" name="session_year_id" id="session_year_id">
@@ -31,6 +34,7 @@ View Update Attendance
                           <option value="{{ session_year.id }}">{{ session_year.session_start_year }} TO {{ session_year.session_end_year }}</option>
                         {% endfor %}
                     </select>
+
                   </div>
                   <div class="form-group">
                      <button type="button" class="btn btn-primary btn-block" id="fetch_attendance">Fetch Attendance Date</button>

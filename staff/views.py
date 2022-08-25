@@ -1,12 +1,9 @@
 from django.shortcuts import render
-
 import json
 from datetime import datetime
 from uuid import uuid4
-
 from django.contrib import messages
 from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
-from django.shortcuts import render
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 
@@ -15,7 +12,6 @@ LeaveReportStaff, Staffs, FeedBackStaffs, CustomUser, Courses, NotificationStaff
 
 
 def staff_home(request):
-    # For Fetch All Student Under Staff
     subjects = Subjects.objects.filter(staff_id=request.user.id)
     course_id_list = []
 
@@ -128,6 +124,12 @@ def save_attendance_data(request):
 
     except:
         return HttpResponse("ERR")
+
+
+def subject(request):
+    subjects = Subjects.objects.filter(staff_id=request.user.id)
+    context = {"subjects": subjects}
+    return render(request, "staff_template/subject_template.html", context)
 
 
 def staff_update_attendance(request):
