@@ -8,7 +8,7 @@ from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 
 from management_app.models import (Subjects, SessionYearModel, Students, Attendance, AttendanceReport,
-LeaveReportStaff, Staffs, FeedBackStaffs, CustomUser, Courses, NotificationStaffs, StudentResult, OnlineClassRoom)
+LeaveReportStaff, Staffs, FeedBackStaffs, CustomUser, Courses, NotificationStaffs, StudentResult)
 
 
 def staff_home(request):
@@ -374,46 +374,3 @@ def fetch_result_student(request):
 
     else:
         return HttpResponse("False")
-
-
-def start_live_classroom(request):
-    subjects = Subjects.objects.filter(staff_id=request.user.id)
-    session_years = SessionYearModel.object.all()
-    return render(request, "staff_template/start_live_classroom.html", {"subjects": subjects, "session_years": session_years})
-
-
-def start_live_classroom_process(request):
-    session_year = request.POST.get("session_year")
-    subject = request.POST.get("subject")
-
-    subject_obj = Subjects.objects.get(id=subject)
-    session_obj = SessionYearModel.object.get(id=session_year)
-    checks = OnlineClassRoom.objects.filter(
-        subject=subject_obj, session_years=session_obj, is_active=True).exists()
-
-    if checks:
-        data = OnlineClassRoom.objects.get(
-            subject=subject_obj, session_years=session_obj, is_active=True)
-        room_pwd = data.room_pwd
-        roomname = data.room_name
-
-    else:
-        room_pwd = datetime.now().strftime('%Y%m-%d%H-%M%S-') + str(uuid4())
-        roomname = datetime.now().strftime('%Y%m-%d%H-%M%S-') + str(uuid4())
-        staff_obj = Staffs.objects.get(admin=request.user.id)
-
-        onlineClass = OnlineClassRoom(
-            room_name=roomname, room_pwd=room_pwd, subject=subject_obj,
-            session_years=session_obj, started_by=staff_obj, is_active=True
-        )
-        onlineClass.save()
-
-    return render(
-        request, "staff_template/live_class_room_start.html",
-        {"username": request.user.username, "password": room_pwd,
-         "roomid": roomname, "subject": subject_obj.subject_name, "session_year": session_obj}
-        )
-
-
-def returnHtmlWidget(request):
-    return render(request, "widget.html")

@@ -9,10 +9,10 @@ from main_system import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('demo',views.showDemoPage),
     path('accounts/',include('django.contrib.auth.urls')),  # password reset
     
     # apps
+    path('',views.ShowLoginPage,name="show_login"),
     path('admin_page/', include('admin_page.urls')),
     path('staff/', include('staff.urls')),
     path('student/', include('student.urls')),
@@ -28,12 +28,10 @@ urlpatterns = [
     path('do_signup_student',views.do_signup_student,name="do_signup_student"),
     
     
-    path('',views.ShowLoginPage,name="show_login"),
     path('get_user_details', views.GetUserDetails),
     path('logout_user', views.logout_user,name="logout"),
     path('doLogin',views.doLogin,name="do_login"),
-    
-                  
+            
     
     path('firebase-messaging-sw.js', views.showFirebaseJS,name="show_firebase_js"),
     

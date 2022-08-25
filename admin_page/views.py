@@ -127,7 +127,7 @@ def add_course_save(request):
             course_model.save()
             
             messages.success(request, "Successfully Added Course")
-            return HttpResponseRedirect(reverse("add_course"))
+            return HttpResponseRedirect(reverse("manage_course"))
         
         except Exception as e:
             print(e)
@@ -211,7 +211,7 @@ def add_subject_save(request):
             subject.save()
             
             messages.success(request, "Successfully Added Subject")
-            return HttpResponseRedirect(reverse("add_subject"))
+            return HttpResponseRedirect(reverse("manage_subject"))
         
         except:
             messages.error(request, "Failed to Add Subject")
@@ -240,6 +240,21 @@ def manage_subject(request):
     subjects = Subjects.objects.all()
     context = {"subjects": subjects}
     return render(request, "admin_template/manage_subject_template.html", context)
+
+
+def delete_subject(request, id):
+    if request.method == "POST":
+        return HttpResponse("<h2>Method Not Allowed</h2>")
+    
+    else:
+        subject_id = request.POST.get("subject_id")
+        subject = Subjects.objects.get(id=id)
+        subject.delete()
+        
+        context = {"subject_id": subject_id, "id": subject_id}
+        messages.error(request, "Subject Deleted")
+        return HttpResponseRedirect(reverse("manage_subject"), context)
+
 
 
 def edit_staff(request, staff_id):
@@ -317,15 +332,6 @@ def edit_student_save(request):
             session_year_id = form.cleaned_data["session_year_id"]
             course_id = form.cleaned_data["course"]
             sex = form.cleaned_data["sex"]
-
-            # if request.FILES.get('profile_pic', False):
-            #     profile_pic = request.FILES['profile_pic']
-            #     fs = FileSystemStorage()
-            #     filename = fs.save(profile_pic.name, profile_pic)
-            #     profile_pic_url = fs.url(filename)
-                
-            # else:
-            #     profile_pic_url = None
 
             try:
                 user = CustomUser.objects.get(id=student_id)
@@ -419,12 +425,27 @@ def edit_course_save(request):
             print(Courses.course_name)
             course.course_name = course_name
             course.save()
+            
             messages.success(request, "Successfully Edited Course")
             return HttpResponseRedirect(reverse("edit_course", kwargs={"course_id": course_id}))
         
         except:
             messages.error(request, "Failed to Edit Course")
             return HttpResponseRedirect(reverse("edit_course", kwargs={"course_id": course_id}))
+
+
+def delete_course(request, id):
+    if request.method == "POST":
+        return HttpResponse("<h2>Method Not Allowed</h2>")
+    
+    else:
+        course_id = request.POST.get("course_id")
+        course = Courses.objects.get(id=id)
+        course.delete()
+        
+        context = {"course_id": course_id, "id": course_id}
+        messages.error(request, "Course Deleted")
+        return HttpResponseRedirect(reverse("manage_course"), context)
 
 
 def manage_session(request):

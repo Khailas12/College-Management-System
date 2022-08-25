@@ -32,6 +32,9 @@ urlpatterns = [
     path('edit_course/<str:course_id>', views.edit_course, name="edit_course"),
     path('edit_course_save', views.edit_course_save, name="edit_course_save"),
     
+     path('delete_course/<str:id>', views.delete_course, name='delete_course'),
+     path('delete_subject/<str:id>', views.delete_subject, name='delete_subject'),
+    
     path('manage_session', views.manage_session, name="manage_session"),
     path('add_session_save', views.add_session_save, name="add_session_save"),
     

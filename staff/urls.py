@@ -50,13 +50,4 @@ urlpatterns = [
          name="edit_student_result"),
     path('fetch_result_student', views.fetch_result_student,
          name="fetch_result_student"),
-
-    # live classroom
-    path('start_live_classroom', views.start_live_classroom,
-         name="start_live_classroom"),
-    path('start_live_classroom_process', views.start_live_classroom_process,
-         name="start_live_classroom_process"),
-
-    # path('node_modules/canvas-designer/widget.html',views.returnHtmlWidget,name="returnHtmlWidget"),
-     path('node_modules/canvas-designer/widget.html',views.returnHtmlWidget,name="returnHtmlWidget"),
 ]

@@ -1,4 +1,5 @@
 import datetime
+from multiprocessing import context
 from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
@@ -8,7 +9,7 @@ from django.views.decorators.csrf import csrf_exempt
 from management_app.models import (
     Students, Courses, Subjects, CustomUser, Attendance, AttendanceReport,
     LeaveReportStudent, FeedBackStudent, NotificationStudent, 
-    StudentResult, OnlineClassRoom, SessionYearModel
+    StudentResult
 )
 
 
@@ -19,9 +20,6 @@ def student_home(request):
     attendance_absent = AttendanceReport.objects.filter(student_id=student_obj, status=False).count()
     course = Courses.objects.get(id=student_obj.course_id.id)
     subjects = Subjects.objects.filter(course_id=course).count()
-    subjects_data = Subjects.objects.filter(course_id=course)
-    session_obj = SessionYearModel.object.get(id=student_obj.session_year_id.id)
-    class_room = OnlineClassRoom.objects.filter(subject__in=subjects_data, is_active=True, session_years=session_obj)
 
     subject_name = []
     data_present = []
@@ -40,11 +38,12 @@ def student_home(request):
         data_present.append(attendance_present_count)
         data_absent.append(attendance_absent_count)
 
-    return render(
-        request, "student_template/student_home_template.html", 
-        {"total_attendance": attendance_total, "attendance_absent": attendance_absent,
+    context = {"total_attendance": attendance_total, "attendance_absent": attendance_absent,
         "attendance_present": attendance_present, "subjects": subjects, "data_name": subject_name, 
-        "data1": data_present, "data2": data_absent, "class_room": class_room}
+        "data1": data_present, "data2": data_absent}
+    return render(
+        request, "student_template/student_home_template.html", context
+        
     )
 
 
@@ -52,31 +51,43 @@ def student_view_attendance(request):
     student = Students.objects.get(admin=request.user.id)
     course = student.course_id
     subjects = Subjects.objects.filter(course_id=course)
-    return render(request, "student_template/student_view_attendance.html", {"subjects": subjects})
+    
+    context = {"subjects": subjects}
+    return render(request, "student_template/student_view_attendance.html", context)
 
 
 def student_view_attendance_post(request):
     subject_id = request.POST.get("subject")
     start_date = request.POST.get("start_date")
     end_date = request.POST.get("end_date")
-
-    start_data_parse = datetime.datetime.strptime(start_date, "%Y-%m-%d").date()
-    end_data_parse = datetime.datetime.strptime(end_date, "%Y-%m-%d").date()
-    subject_obj = Subjects.objects.get(id=subject_id)
-    user_object = CustomUser.objects.get(id=request.user.id)
-    stud_obj = Students.objects.get(admin=user_object)
-
-    attendance = Attendance.objects.filter(
-        attendance_date__range=(start_data_parse, end_data_parse), subject_id=subject_obj)
-    attendance_reports = AttendanceReport.objects.filter(
-        attendance_id__in=attendance, student_id=stud_obj)
-    return render(request, "student_template/student_attendance_data.html", {"attendance_reports": attendance_reports})
+    
+    try:
+        start_data_parse = datetime.datetime.strptime(start_date, "%Y-%m-%d").date()
+        end_data_parse = datetime.datetime.strptime(end_date, "%Y-%m-%d").date()
+        subject_obj = Subjects.objects.get(id=subject_id)
+        user_object = CustomUser.objects.get(id=request.user.id)
+        stud_obj = Students.objects.get(admin=user_object)
+        attendance_data = AttendanceReport.objects.filter(student_id=stud_obj, attendance_id__subject_id=subject_obj, attendance_id__date__range=[start_data_parse, end_data_parse])
+        
+        attendance = Attendance.objects.filter(
+            attendance_date__range=(start_data_parse, end_data_parse), subject_id=subject_obj)
+        attendance_reports = AttendanceReport.objects.filter(
+            attendance_id__in=attendance, student_id=stud_obj)
+        
+        context = {"attendance_reports": attendance_reports}
+        return render(request, "student_template/student_attendance_data.html", context)
+    
+    except:
+        messages.error(request, "Invalid Entry")
+        return HttpResponseRedirect(reverse("student_view_attendance"))
 
 
 def student_apply_leave(request):
     staff_obj = Students.objects.get(admin=request.user.id)
     leave_data = LeaveReportStudent.objects.filter(student_id=staff_obj)
-    return render(request, "student_template/student_apply_leave.html", {"leave_data": leave_data})
+    
+    context = {"leave_data": leave_data}
+    return render(request, "student_template/student_apply_leave.html", context)
 
 
 def student_apply_leave_save(request):
@@ -111,7 +122,9 @@ def student_subject(request):
 def student_feedback(request):
     staff_id = Students.objects.get(admin=request.user.id)
     feedback_data = FeedBackStudent.objects.filter(student_id=staff_id)
-    return render(request, "student_template/student_feedback.html", {"feedback_data": feedback_data})
+    
+    context = {"feedback_data": feedback_data}
+    return render(request, "student_template/student_feedback.html", context)
 
 
 def student_feedback_save(request):
@@ -137,7 +150,9 @@ def student_feedback_save(request):
 def student_profile(request):
     user = CustomUser.objects.get(id=request.user.id)
     student = Students.objects.get(admin=user)
-    return render(request, "student_template/student_profile.html", {"user": user, "student": student})
+    
+    context = {"user": user, "student": student}
+    return render(request, "student_template/student_profile.html", context)
 
 
 def student_profile_save(request):
@@ -185,10 +200,14 @@ def student_fcmtoken_save(request):
 def student_all_notification(request):
     student = Students.objects.get(admin=request.user.id)
     notifications = NotificationStudent.objects.filter(student_id=student.id)
-    return render(request, "student_template/all_notification.html", {"notifications": notifications})
+    
+    context = {"notifications": notifications}
+    return render(request, "student_template/all_notification.html", context)
 
 
 def student_view_result(request):
     student = Students.objects.get(admin=request.user.id)
     studentresult = StudentResult.objects.filter(student_id=student.id)
-    return render(request, "student_template/student_result.html", {"studentresult": studentresult})
+    
+    context = {"studentresult": studentresult}
+    return render(request, "student_template/student_result.html", context)
