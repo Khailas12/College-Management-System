@@ -105,7 +105,7 @@ def add_staff_save(request):
             user.save()
             
             messages.success(request, "Successfully Added Staff")
-            return HttpResponseRedirect(reverse("add_staff"))
+            return HttpResponseRedirect(reverse("manage_staff"))
         
         except:
             messages.error(request, "Failed to Add Staff")
@@ -177,7 +177,7 @@ def add_student_save(request):
                 user.save()
                 
                 messages.success(request, "Student Added Succesfully")
-                return HttpResponseRedirect(reverse("add_student"))
+                return HttpResponseRedirect(reverse("manage_student"))
             
             except:
                 messages.error(request, "Failed to Add Student")
