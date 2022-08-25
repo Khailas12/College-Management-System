@@ -42,6 +42,7 @@ Manage Student
                       <th>Last Login</th>
                       <th>Date Joined</th>
                       <th>Action</th>
+                      <th>Delete</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -60,14 +61,30 @@ Manage Student
                       <td>{{ student.admin.last_login }}</td>
                       <td>{{ student.admin.date_joined }}</td>
                       <td><a href="{% url 'edit_student' student_id=student.admin.id %}" class="btn btn-success">Edit</a></td>
+
+                      <td><a href="{% url 'delete_student' student_id=student.admin.id %}" class="btn btn-danger">Delete</a></td>
                     </tr>
                   {% endfor %}
                   </tbody>
                 </table>
               </div>
+              <div class="form-group">
+                {% if messages %}
+                  {% for message in messages %}
+                  {% if message.tags == 'error' %}
+                  <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+    
+                  {% endif %}
+                  {% if message.tags == 'success' %}
+                  <div class="alert alert-success" style="margin-top:10px">{{ message }}</div>
+                  {% endif %}
+                  {% endfor %}
+                {% endif %}
+              </div>
               <!-- /.card-body -->
             </div>
-            <!-- /.card -->
+          </div>
+          
           </div>
         </div>
       </div>

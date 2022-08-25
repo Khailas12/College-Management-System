@@ -256,7 +256,6 @@ def delete_subject(request, id):
         return HttpResponseRedirect(reverse("manage_subject"), context)
 
 
-
 def edit_staff(request, staff_id):
     staff = Staffs.objects.get(admin=staff_id)
     context = {"staff": staff, "id": staff_id}
@@ -292,6 +291,21 @@ def edit_staff_save(request):
         except:
             messages.error(request, "Failed to Edit Staff")
             return HttpResponseRedirect(reverse("edit_staff", kwargs={"staff_id": staff_id}))
+
+
+def delete_staff(request, staff_id):
+    if request.method == "POST":
+        return HttpResponse("<h2>Method Not Allowed</h2>")
+    
+    else:
+        request.session['staff_id'] = staff_id
+        staff = Staffs.objects.get(admin=staff_id)
+        staff.delete()
+        
+        context = {"staff_id": staff_id, "id": staff_id}
+        messages.error(request, "Staff Deleted")
+        return HttpResponseRedirect(reverse("manage_staff"), context)
+
 
 
 def edit_student(request, student_id):
@@ -370,6 +384,20 @@ def edit_student_save(request):
             return render(request, "admin_template/edit_student_template.html", context)
 
 
+def delete_student(request, student_id):
+    if request.method == "POST":
+        return HttpResponse("<h2>Method Not Allowed</h2>")
+    
+    else:
+        request.session['student_id'] = student_id
+        student = Students.objects.get(admin=student_id)
+        student.delete()
+        
+        context = {"student_id": student_id, "id": student_id}
+        messages.error(request, "Student Deleted")
+        return HttpResponseRedirect(reverse("manage_student"), context)
+
+
 def edit_subject(request, subject_id):
     subject = Subjects.objects.get(id=subject_id)
     courses = Courses.objects.all()
@@ -403,6 +431,7 @@ def edit_subject_save(request):
         except:
             messages.error(request, "Failed to Edit Subject")
             return HttpResponseRedirect(reverse("edit_subject", kwargs={"subject_id": subject_id}))
+
 
 
 def edit_course(request, course_id):

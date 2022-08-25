@@ -38,6 +38,7 @@ Manage Staff
                       <th>Last Login</th>
                       <th>Date Joined</th>
                       <th>Action</th>
+                      <th>Delete</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -52,6 +53,8 @@ Manage Staff
                       <td>{{ staff.admin.last_login }}</td>
                       <td>{{ staff.admin.date_joined }}</td>
                       <td><a href="/admin_page/edit_staff/{{ staff.admin.id }}" class="btn btn-success">Edit</a></td>
+
+                      <td><a href="/admin_page/delete_staff/{{ staff.admin.id }}" class="btn btn-danger">Delete</a></td>
                     </tr>
                   {% endfor %}
                   </tbody>
@@ -59,7 +62,19 @@ Manage Staff
               </div>
               <!-- /.card-body -->
             </div>
-            <!-- /.card -->
+            <div class="form-group">
+              {% if messages %}
+                {% for message in messages %}
+                {% if message.tags == 'error' %}
+                <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+  
+                {% endif %}
+                {% if message.tags == 'success' %}
+                <div class="alert alert-success" style="margin-top:10px">{{ message }}</div>
+                {% endif %}
+                {% endfor %}
+              {% endif %}
+            </div>
           </div>
         </div>
       </div>
