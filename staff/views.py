@@ -220,6 +220,7 @@ def staff_apply_leave_save(request):
             leave_report = LeaveReportStaff(
                 staff_id=staff_obj, leave_date=leave_date, leave_message=leave_msg, leave_status=0)
             leave_report.save()
+            
             messages.success(request, "Successfully Applied for Leave")
             return HttpResponseRedirect(reverse("staff_apply_leave"))
 
@@ -307,13 +308,15 @@ def staff_fcmtoken_save(request):
 def staff_all_notification(request):
     staff = Staffs.objects.get(admin=request.user.id)
     notifications = NotificationStaffs.objects.filter(staff_id=staff.id)
-    return render(request, "staff_template/all_notification.html", {"notifications": notifications})
+    context = {"notifications": notifications}
+    return render(request, "staff_template/all_notification.html", context)
 
 
 def staff_add_result(request):
     subjects = Subjects.objects.filter(staff_id=request.user.id)
     session_years = SessionYearModel.object.all()
-    return render(request, "staff_template/staff_add_result.html", {"subjects": subjects, "session_years": session_years})
+    context = {"subjects": subjects, "session_years": session_years}
+    return render(request, "staff_template/staff_add_result.html", context)
 
 
 def save_student_result(request):
@@ -338,12 +341,13 @@ def save_student_result(request):
             result.subject_assignment_marks = assignment_marks
             result.subject_exam_marks = exam_marks
             result.save()
+            
             messages.success(request, "Successfully Updated Result")
             return HttpResponseRedirect(reverse("staff_add_result"))
 
         else:
-            result = StudentResult(student_id=student_obj, subject_id=subject_obj,
-                                   subject_exam_marks=exam_marks, subject_assignment_marks=assignment_marks)
+            result = StudentResult(
+                student_id=student_obj, subject_id=subject_obj,subject_exam_marks=exam_marks, subject_assignment_marks=assignment_marks)
             result.save()
 
             messages.success(request, "Successfully Added Result")
