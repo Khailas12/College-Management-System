@@ -11,10 +11,9 @@ ALLOWED_HOSTS = ["*"]
 MEDIA_URL="/media/"
 MEDIA_ROOT=os.path.join(BASE_DIR,"media")
 
-STATIC_URL="/static/"
+STATIC_URL="/static/"   # management_app/static/
 STATIC_ROOT=os.path.join(BASE_DIR,"static")
 
-# Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -63,6 +62,8 @@ TEMPLATES = [
 WSGI_APPLICATION = 'main_system.wsgi.application'
 
 
+# Reference used for setting up db - https://www.section.io/engineering-education/django-app-using-postgresql-database/
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -108,4 +109,6 @@ AUTH_USER_MODEL="management_app.CustomUser"
 AUTHENTICATION_BACKENDS=['management_app.EmailBackEnd.EmailBackEnd']
 
 EMAIL_BACKEND="django.core.mail.backends.filebased.EmailBackend"
+
+# pswd reset link
 EMAIL_FILE_PATH=os.path.join(BASE_DIR,"sent_mails")

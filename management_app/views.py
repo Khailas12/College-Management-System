@@ -52,7 +52,7 @@ def GetUserDetails(request):    # fetches the respective user details
         return HttpResponse("Please Login First")
 
 
-# Used Firebase to send notification to staff and student
+# Firebase to send notification to staff and student by admin
 def showFirebaseJS(request):
     data = 'importScripts("https://www.gstatic.com/firebasejs/7.14.6/firebase-app.js");' \
         'importScripts("https://www.gstatic.com/firebasejs/7.14.6/firebase-messaging.js"); ' \

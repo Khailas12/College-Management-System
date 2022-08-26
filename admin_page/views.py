@@ -705,10 +705,10 @@ def send_student_notification(request):
 
     body = {
         "notification": {
-            "title": "Student Management System",
+            "title": "College Management System",
             "body": message,
-            "click_action": "https://studentmanagementsystem22.herokuapp.com/student_all_notification",
-            "icon": "http://studentmanagementsystem22.herokuapp.com/static/dist/img/user2-160x160.jpg"
+            "click_action": "shorturl.at/cgh07",
+            "icon": "shorturl.at/gmOV8"
         },
         "to": token
     }
@@ -727,15 +727,16 @@ def send_staff_notification(request):
     id = request.POST.get("id")
     message = request.POST.get("message")
     staff = Staffs.objects.get(admin=id)
+    
     token = staff.fcm_token
     url = "https://fcm.googleapis.com/fcm/send"
 
     body = {
         "notification": {
-            "title": "Student Management System",
+            "title": "College Management System",
             "body": message,
-            "click_action": "https://studentmanagementsystem22.herokuapp.com/staff_all_notification",
-            "icon": "http://studentmanagementsystem22.herokuapp.com/static/dist/img/user2-160x160.jpg"
+            "click_action": "shorturl.at/deIJ2",
+            "icon": "shorturl.at/cfptZ"
         },
         "to": token
     }

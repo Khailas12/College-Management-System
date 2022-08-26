@@ -12,7 +12,9 @@ class EditResultViewClass(View):
     def get(self, request, *args, **kwargs):
         staff_id = request.user.id
         edit_result_form = EditResultForm(staff_id=staff_id)
-        return render(request, "staff_template/edit_student_result.html", {"form": edit_result_form})
+        
+        context = {"form": edit_result_form}
+        return render(request, "staff_template/edit_student_result.html", context)
 
     def post(self, request, *args, **kwargs):
         form = EditResultForm(staff_id=request.user.id, data=request.POST)
@@ -28,7 +30,7 @@ class EditResultViewClass(View):
             result = StudentResult.objects.get(subject_id=subject_obj, student_id=student_obj)
             
             result.subject_assignment_marks = assignment_marks
-            result.subject_exam_marks = exam_marks  # pass = if mark above 40 or above. else fail 
+            result.subject_exam_marks = exam_marks  # pass = if mark is 40 or above. else fail 
             result.save()
             
             messages.success(request, "Successfully Updated Result")
@@ -37,4 +39,6 @@ class EditResultViewClass(View):
         else:
             messages.error(request, "Failed to Update Result")
             form = EditResultForm(request.POST, staff_id=request.user.id)
-            return render(request, "staff_template/edit_student_result.html", {"form": form})
+            
+            context = {"form": form}
+            return render(request, "staff_template/edit_student_result.html", context)

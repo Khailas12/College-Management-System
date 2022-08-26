@@ -12,6 +12,7 @@ from management_app.models import (
 )
 
 
+# student panel
 def student_home(request):
     student_obj = Students.objects.get(admin=request.user.id)
     attendance_total = AttendanceReport.objects.filter(student_id=student_obj).count()
@@ -40,10 +41,8 @@ def student_home(request):
     context = {"total_attendance": attendance_total, "attendance_absent": attendance_absent,
         "attendance_present": attendance_present, "subjects": subjects, "data_name": subject_name, 
         "data1": data_present, "data2": data_absent}
-    return render(
-        request, "student_template/student_home_template.html", context
-        
-    )
+    
+    return render(request, "student_template/student_home_template.html", context)
 
     
 
@@ -175,14 +174,15 @@ def student_profile_save(request):
 
 
 @csrf_exempt
-def student_fcmtoken_save(request):
+def student_fcmtoken_save(request): # Firebase Cloud Messaging 
     token = request.POST.get("token")
     
     try:
         student = Students.objects.get(admin=request.user.id)
         student.fcm_token = token
-        student.save()
+        student.save()  
         return HttpResponse("True")
+        # Each message can transfer a payload of up to 4KB to a client.
     
     except:
         return HttpResponse("False")

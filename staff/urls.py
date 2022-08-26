@@ -34,7 +34,7 @@ urlpatterns = [
     path('staff_feedback_save', views.staff_feedback_save,
          name="staff_feedback_save"),
 
-    # profile
+    # view profile
     path('staff_profile', views.staff_profile, name="staff_profile"),
     path('staff_profile_save', views.staff_profile_save, name="staff_profile_save"),
     path('staff_fcmtoken_save', views.staff_fcmtoken_save,
