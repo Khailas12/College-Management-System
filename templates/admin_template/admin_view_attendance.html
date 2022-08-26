@@ -55,29 +55,21 @@ View Attendance
                          <button type="button" class="btn btn-primary btn-block" id="fetch_student">Fetch Student Data</button>
                      </div>
                 </div>
-                <!-- /.card-body -->
-
-
                 <div id="student_data" class="card-footer">
 
                 </div>
             </div>
-            <!-- /.card -->
-
-
-
           </div>
           </div>
       </div>
     </section>
     <!-- /.content -->
+
+    
 {% endblock main_content %}
 {% block custom_js %}
 <script>
     $(document).ready(function(){
-
-
-
         $("#fetch_attendance").click(function(){
                var subject=$("#subject").val();
                var session_year=$("#session_year_id").val();

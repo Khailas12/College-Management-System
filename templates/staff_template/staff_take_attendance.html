@@ -3,7 +3,7 @@
 Take Attendance
 {% endblock page_title %}
 {% block main_content %}
-    <!-- Main content -->
+
     <section class="content">
       <div class="container-fluid">
                     <div class="row">
@@ -24,6 +24,7 @@ Take Attendance
                         {% endfor %}
                     </select>
                   </div>
+
                   <div class="form-group">
                     <label>Session Year</label>
                     <select class="form-control" name="session_year" id="session_year">
@@ -32,6 +33,7 @@ Take Attendance
                         {% endfor %}
                     </select>
                   </div>
+
                    <div class="form-group">
                       {% if messages %}
                         {% for message in messages %}
@@ -55,10 +57,6 @@ Take Attendance
 
                 </div>
             </div>
-            <!-- /.card -->
-
-
-
           </div>
           </div>
       </div>

@@ -1,5 +1,5 @@
 {% extends 'admin_template/base_template.html' %}
-<!--this is for fontawesome-->
+
 <script src="https://kit.fontawesome.com/44dea594b7.js" crossorigin="anonymous"></script>
 
 {% block page_title %}
@@ -96,6 +96,7 @@ Home
               <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
             </div>
           </div>
+          
           <div class="card-body">
             <canvas id="pieChart"
               style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
@@ -103,6 +104,7 @@ Home
           <!-- /.card-body -->
         </div>
       </div>
+
       <div class="col-lg-6">
         <div class="card card-success">
           <div class="card-header">
@@ -122,6 +124,7 @@ Home
         </div>
       </div>
     </div>
+
     <div class="row">
       <div class="col-lg-6">
         <div class="card card-info">
@@ -142,6 +145,7 @@ Home
           <!-- /.card-body -->
         </div>
       </div>
+
       <div class="col-lg-6">
         <div class="card card-warning">
           <div class="card-header">
@@ -161,6 +165,7 @@ Home
         </div>
       </div>
     </div>
+
     <div class="row">
       <div class="col-lg-12">
         <div class="card card-success">
@@ -173,6 +178,7 @@ Home
               <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
             </div>
           </div>
+
           <div class="card-body">
             <div class="chart">
               <canvas id="barChart1"
@@ -183,6 +189,7 @@ Home
         </div>
       </div>
     </div>
+
     <div class="row">
       <div class="col-lg-12">
         <div class="card card-success">
@@ -207,7 +214,8 @@ Home
     </div>
   </div>
 </section>
-<!-- /.content -->
+
+
 {% endblock main_content %}
 {% block custom_js %}
 <script>

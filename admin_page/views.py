@@ -664,16 +664,12 @@ def admin_profile_save(request):
         return HttpResponseRedirect(reverse("admin_profile"))
 
     else:
-        first_name = request.POST.get("first_name")
-        last_name = request.POST.get("last_name")
         password = request.POST.get("password")
 
         try:
             customuser = CustomUser.objects.get(id=request.user.id)
-            customuser.first_name = first_name
-            customuser.last_name = last_name
-
             customuser.save()
+            
             messages.success(request, "Successfully Updated Profile")
             return HttpResponseRedirect(reverse("admin_profile"))
 
@@ -736,7 +732,7 @@ def send_staff_notification(request):
             "title": "College Management System",
             "body": message,
             "click_action": "shorturl.at/deIJ2",
-            "icon": "shorturl.at/cfptZ"
+            "icon": "https://res.cloudinary.com/dzzjp6xlv/image/upload/v1661474583/logo_b7edsg.png"
         },
         "to": token
     }

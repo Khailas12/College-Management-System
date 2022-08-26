@@ -8,7 +8,7 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="{% static "dist/img/user2-160x160.jpg" %}" class="img-circle elevation-2" alt="User Image">
+          <img src="{% static "dist/img/admin_logo.png" %}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
           <a href="{% url 'admin_profile' %}" class="d-block">{{ user.username }}</a>
@@ -39,6 +39,7 @@
               </p>
             </a>
           </li>
+
            <li class="nav-item">
               {% url 'manage_staff' as manage_staff %}
             {% url 'edit_staff' staff_id=id as edit_staff %}
@@ -49,6 +50,7 @@
               </p>
             </a>
           </li>
+
           <li class="nav-item">
               {% url 'add_student' as add_student %}
             <a href="{% url 'add_student' %}" class="nav-link {% if request.path == add_student %} active {% endif %}">
@@ -58,6 +60,7 @@
               </p>
             </a>
           </li>
+
           <li class="nav-item">
               {% url 'manage_student' as manage_student %}
               {% url 'edit_student' student_id=id as edit_student %}
@@ -68,6 +71,7 @@
               </p>
             </a>
           </li>
+
           <li class="nav-item">
             {% url 'add_course' as add_course %}
             <a href="{% url 'add_course' %}" class="nav-link {% if request.path == add_course %} active {% endif %}">
@@ -77,6 +81,7 @@
               </p>
             </a>
           </li>
+
           <li class="nav-item">
             {% url 'manage_course' as manage_course %}
               {% url 'edit_course' course_id=id as edit_course %}
@@ -87,6 +92,7 @@
               </p>
             </a>
           </li>
+
           <li class="nav-item">
             {% url 'add_subject' as add_subject %}
             <a href="{% url 'add_subject' %}" class="nav-link {% if request.path == add_subject %} active {% endif %}">
@@ -96,6 +102,7 @@
               </p>
             </a>
           </li>
+
           <li class="nav-item">
             {% url 'manage_subject' as manage_subject %}
             {% url 'edit_subject' subject_id=id as edit_subject %}
@@ -106,6 +113,7 @@
               </p>
             </a>
           </li>
+
           <li class="nav-item">
             {% url 'manage_session' as manage_session %}
             <a href="{% url 'manage_session' %}" class="nav-link {% if request.path == manage_session %} active {% endif %} ">
@@ -125,6 +133,7 @@
               </p>
             </a>
           </li>
+
            <li class="nav-item">
                {% url 'staff_feedback_message' as staff_feedback_message %}
             <a href="{% url 'staff_feedback_message' %}" class="nav-link {% if request.path == staff_feedback_message %} active {% endif %}">
@@ -134,6 +143,7 @@
               </p>
             </a>
           </li>
+
            <li class="nav-item">
                {% url 'student_leave_view' as student_leave_view %}
             <a href="{% url 'student_leave_view' %}" class="nav-link {% if request.path == student_leave_view %} active {% endif %}">
@@ -143,6 +153,7 @@
               </p>
             </a>
           </li>
+
             <li class="nav-item">
                  {% url 'staff_leave_view' as staff_leave_view %}
             <a href="{% url 'staff_leave_view' %}" class="nav-link {% if request.path == staff_leave_view %} active {% endif %}">
@@ -152,6 +163,7 @@
               </p>
             </a>
           </li>
+
           <li class="nav-item">
             {% url 'admin_view_attendance' as admin_view_attendance %}
              <a href="{% url 'admin_view_attendance' %}" class="nav-link {% if request.path == admin_view_attendance %} active {% endif %}">
@@ -161,6 +173,7 @@
               </p>
             </a>
           </li>
+
           <li class="nav-item">
             {% url 'admin_send_notification_staff' as admin_send_notification_staff %}
              <a href="{% url 'admin_send_notification_staff' %}" class="nav-link {% if request.path == admin_send_notification_staff %} active {% endif %}">
@@ -170,6 +183,7 @@
               </p>
             </a>
           </li>
+          
           <li class="nav-item">
             {% url 'admin_send_notification_student' as admin_send_notification_student %}
              <a href="{% url 'admin_send_notification_student' %}" class="nav-link {% if request.path == admin_send_notification_student %} active {% endif %}">

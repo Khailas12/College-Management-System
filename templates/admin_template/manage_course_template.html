@@ -13,12 +13,14 @@ Manage Course
               <div class="card-header">
                 <h3 class="card-title">COURSE DETAILS</h3>
               </div>
+
                 <div class="card-tools">
                   <div class="input-group input-group-sm" style="width: 150px;">
                     </div>
                   </div>
                 </div>
               </div>
+
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
                 <table class="table table-hover text-nowrap">
@@ -30,6 +32,7 @@ Manage Course
                       <th>Delete</th>
                     </tr>
                   </thead>
+
                   <tbody>
                   {% for course in courses %}
                     <tr>
@@ -41,6 +44,7 @@ Manage Course
                   {% endfor %}
                   </tbody>
                 </table>
+                
               </div>
               <div class="form-group">
                 {% if messages %}
