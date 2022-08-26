@@ -31,6 +31,68 @@
           </li>
 
           <li class="nav-item">
+            {% url 'manage_session' as manage_session %}
+            <a href="{% url 'manage_session' %}" class="nav-link {% if request.path == manage_session %} active {% endif %} ">
+              <i class="fa-solid fa-calendar-days"></i>
+              <p>
+                Academic Year
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            {% url 'view_session_year' as view_session_year %}
+            <a href="{% url 'view_session_year' %}" class="nav-link {% if request.path == view_session_year %} active {% endif %} ">
+              <i class="fa-solid fa-calendar-days"></i>
+              <p>
+                Manage Academic Year
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            {% url 'add_course' as add_course %}
+            <a href="{% url 'add_course' %}" class="nav-link {% if request.path == add_course %} active {% endif %}">
+              <i class="fa-solid fa-book-open"></i>
+              <p>
+                Add Course
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            {% url 'manage_course' as manage_course %}
+              {% url 'edit_course' course_id=id as edit_course %}
+            <a href="{% url 'manage_course' %}" class="nav-link {% if request.path == manage_course %} active {% endif %} {% if request.path == edit_course %} active {% endif %}">
+              <i class="fa-solid fa-book"></i>
+              <p>
+                Manage Courses
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            {% url 'add_subject' as add_subject %}
+            <a href="{% url 'add_subject' %}" class="nav-link {% if request.path == add_subject %} active {% endif %}">
+              <i class="fa-solid fa-book-medical"></i>
+              <p>
+                Add Subject
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            {% url 'manage_subject' as manage_subject %}
+            {% url 'edit_subject' subject_id=id as edit_subject %}
+            <a href="{% url 'manage_subject' %}" class="nav-link {% if request.path == manage_subject %} active {% endif %} {% if request.path == edit_subject %} active {% endif %} ">
+              <i class="fa-solid fa-book-atlas"></i>
+              <p>
+                Manage Subjects
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
             {% url 'add_staff' as add_staff %}
             <a href="{{ add_staff }}" class="nav-link {% if request.path == add_staff %} active {% endif %}">
               <i class="fa-solid fa-user-check"></i>
@@ -46,7 +108,7 @@
             <a href="{% url 'manage_staff' %}" class="nav-link {% if request.path == manage_staff %} active {% endif %} {% if request.path == edit_staff %} active {% endif %}">
               <i class="fa-solid fa-user-pen"></i>
                 <p>
-                Manage Staff
+                Manage Staffs
               </p>
             </a>
           </li>
@@ -73,66 +135,14 @@
           </li>
 
           <li class="nav-item">
-            {% url 'add_course' as add_course %}
-            <a href="{% url 'add_course' %}" class="nav-link {% if request.path == add_course %} active {% endif %}">
-              <i class="fa-solid fa-book-open"></i>
-              <p>
-                Add Course
-              </p>
-            </a>
-          </li>
-
-          <li class="nav-item">
-            {% url 'manage_course' as manage_course %}
-              {% url 'edit_course' course_id=id as edit_course %}
-            <a href="{% url 'manage_course' %}" class="nav-link {% if request.path == manage_course %} active {% endif %} {% if request.path == edit_course %} active {% endif %}">
-              <i class="fa-solid fa-book"></i>
-              <p>
-                Manage Course
-              </p>
-            </a>
-          </li>
-
-          <li class="nav-item">
-            {% url 'add_subject' as add_subject %}
-            <a href="{% url 'add_subject' %}" class="nav-link {% if request.path == add_subject %} active {% endif %}">
-              <i class="fa-solid fa-book-medical"></i>
-              <p>
-                Add Subject
-              </p>
-            </a>
-          </li>
-
-          <li class="nav-item">
-            {% url 'manage_subject' as manage_subject %}
-            {% url 'edit_subject' subject_id=id as edit_subject %}
-            <a href="{% url 'manage_subject' %}" class="nav-link {% if request.path == manage_subject %} active {% endif %} {% if request.path == edit_subject %} active {% endif %} ">
-              <i class="fa-solid fa-book-atlas"></i>
-              <p>
-                Manage Subject
-              </p>
-            </a>
-          </li>
-
-          <li class="nav-item">
-            {% url 'manage_session' as manage_session %}
-            <a href="{% url 'manage_session' %}" class="nav-link {% if request.path == manage_session %} active {% endif %} ">
-              <i class="fa-solid fa-calendar-days"></i>
-              <p>
-                Manage Session Year
-              </p>
-            </a>
-          </li>
-
-           <li class="nav-item">
-             {% url 'student_feedback_message' as student_feedback_message %}
-            <a href="{% url 'student_feedback_message' %}" class="nav-link {% if request.path == student_feedback_message %} active {% endif %}">
-              <i class="fa-solid fa-envelope"></i>
-              <p>
-                 Student Feedback
-              </p>
-            </a>
-          </li>
+            {% url 'student_feedback_message' as student_feedback_message %}
+           <a href="{% url 'student_feedback_message' %}" class="nav-link {% if request.path == student_feedback_message %} active {% endif %}">
+             <i class="fa-solid fa-envelope"></i>
+             <p>
+                Student Feedback
+             </p>
+           </a>
+         </li>
 
            <li class="nav-item">
                {% url 'staff_feedback_message' as staff_feedback_message %}

@@ -48,7 +48,28 @@
             </p>
           </a>
         </li>
-
+        
+        <li class="nav-item">
+          {% url 'staff_add_result' as staff_add_result %}
+          <a href="{{ staff_add_result }}"
+            class="nav-link {% if request.path == staff_add_result %} active {% endif %}">
+            <i class="fa-solid fa-square-poll-horizontal"></i>
+            <p>
+              Add Result
+            </p>
+          </a>
+        </li>
+<!-- 
+        <li class="nav-item">
+          {% url 'edit_student_result' as edit_student_result %}
+          <a href="{{ edit_student_result }}"
+            class="nav-link {% if request.path == edit_student_result %} active {% endif %}">
+            <i class="fa-solid fa-pen-to-square"></i>
+            <p>
+              Edit Result
+            </p>
+          </a>
+        </li> -->
         <li class="nav-item">
           {% url 'subject' as subject %}
           <a href="{{ subject }}"
@@ -82,27 +103,6 @@
           </a>
         </li>
 
-        <li class="nav-item">
-          {% url 'staff_add_result' as staff_add_result %}
-          <a href="{{ staff_add_result }}"
-            class="nav-link {% if request.path == staff_add_result %} active {% endif %}">
-            <i class="fa-solid fa-square-poll-horizontal"></i>
-            <p>
-              Add Result
-            </p>
-          </a>
-        </li>
-
-        <li class="nav-item">
-          {% url 'edit_student_result' as edit_student_result %}
-          <a href="{{ edit_student_result }}"
-            class="nav-link {% if request.path == edit_student_result %} active {% endif %}">
-            <i class="fa-solid fa-pen-to-square"></i>
-            <p>
-              Edit Result
-            </p>
-          </a>
-        </li>
 
         <li class="nav-item">
           {% url 'staff_all_notification' as staff_all_notification %}

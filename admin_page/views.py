@@ -99,14 +99,13 @@ def add_staff_save(request):
         address = request.POST.get("address")
         course_id = request.POST.get("course")
         sex = request.POST.get("sex")
-        
 
         try:
             # creates a user uniquely cross checking everything with database
             user = CustomUser.objects.create_user(
                 username=username, password=password, email=email,
                 last_name=last_name, first_name=first_name, user_type=2)
-            
+
             user.staffs.address = address
             user.save()
 
@@ -502,6 +501,27 @@ def add_session_save(request):
             return HttpResponseRedirect(reverse("manage_session"))
 
 
+def view_session_year(request):
+    session_years = SessionYearModel.object.all()
+
+    context = {"session_years": session_years}
+    return render(request, "admin_template/view_session_year.html", context)
+
+
+def delete_session_year(request, id):
+    if request.method == "POST":
+        return HttpResponse("<h2>Method Not Allowed</h2>")
+
+    else:
+        year_id = request.POST.get("year_id")
+        year = SessionYearModel.object.get(id=id)
+        year.delete()
+
+        context = {"year_id": year_id, "id": year_id}
+        messages.error(request, "Academic Year Deleted")
+        return HttpResponseRedirect(reverse("manage_session"), context)
+
+
 @csrf_exempt
 def check_email_exist(request):
     email = request.POST.get("email")
@@ -669,7 +689,7 @@ def admin_profile_save(request):
         try:
             customuser = CustomUser.objects.get(id=request.user.id)
             customuser.save()
-            
+
             messages.success(request, "Successfully Updated Profile")
             return HttpResponseRedirect(reverse("admin_profile"))
 
@@ -723,7 +743,7 @@ def send_staff_notification(request):
     id = request.POST.get("id")
     message = request.POST.get("message")
     staff = Staffs.objects.get(admin=id)
-    
+
     token = staff.fcm_token
     url = "https://fcm.googleapis.com/fcm/send"
 

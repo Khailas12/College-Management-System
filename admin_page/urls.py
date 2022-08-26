@@ -36,9 +36,11 @@ urlpatterns = [
      path('delete_subject/<str:id>', views.delete_subject, name='delete_subject'),
      path('delete_student/<str:student_id>', views.delete_student, name='delete_student'),
      path('delete_staff/<str:staff_id>', views.delete_staff, name='delete_staff'),
+     path('delete_session_year/<str:id>', views.delete_session_year, name='delete_session_year'),
     
     path('manage_session', views.manage_session, name="manage_session"),
     path('add_session_save', views.add_session_save, name="add_session_save"),
+    path('view_session_year', views.view_session_year, name="view_session_year"),
     
     path('check_email_exist', views.check_email_exist, name="check_email_exist"),
     path('check_username_exist', views.check_username_exist,

@@ -19,6 +19,7 @@ Edit Results
                         <div class="card-body">
                     {% csrf_token %}
                     {{ form }}
+
                    <div class="form-group">
                       {% if messages %}
                         {% for message in messages %}
