@@ -43,7 +43,7 @@ Attendance Data
               <div class="card-header">
                 <h3 class="card-title">View Attendance</h3>
               </div>
-              <!-- /.card-header -->
+
               <!-- form start -->
                 <div class="card-body">
                     <div class="row">
@@ -55,6 +55,7 @@ Attendance Data
                             <br>
                             <b>[ Status : Present ]</b>
                         </div>
+
                         {% else %}
                         <div class="col-lg-3 attendance_div_red">
                             <b>Date : {{ attendance_report.attendance_id.attendance_date }}</b>
@@ -64,6 +65,7 @@ Attendance Data
                         {% endif %}
                     {% endfor %}
                     {% else %}
+                    
                         <div class="alert alert-danger text-center">No Attendance Data Found!</div>
                      {% endif %}
                     </div>

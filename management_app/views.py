@@ -9,21 +9,22 @@ from management_app.EmailBackEnd import EmailBackEnd
 from management_app.models import CustomUser, Courses, SessionYearModel
 
 
-def ShowLoginPage(request):
+def ShowLoginPage(request): # homepage as assigned
     return render(request, "login_page.html")
 
 
-def doLogin(request):
+def doLogin(request):   # loigin verification and redirect to respective page
     if request.method != "POST":
         return HttpResponse("<h2>Method Not Allowed</h2>")
     
-    else:
+    else:   
         user = EmailBackEnd.authenticate(request, username=request.POST.get(
             "email"), password=request.POST.get("password"))
 
-        if user != None:
+        if user != None:    # if user exists
             login(request, user)
 
+            # redirects to the specific page according to the usertype
             if user.user_type == "1":
                 return HttpResponseRedirect('/admin_page')
 
@@ -32,17 +33,10 @@ def doLogin(request):
 
             else:
                 return HttpResponseRedirect(reverse("student_home"))
-        else:
+            
+        else:       # if user not found or invalid entry
             messages.error(request, "Invalid Login Details")
             return HttpResponseRedirect("/")
-
-
-def GetUserDetails(request):
-    if request.user != None:
-        return HttpResponse("User : "+request.user.email+" usertype : "+str(request.user.user_type))
-
-    else:
-        return HttpResponse("Please Login First")
 
 
 def logout_user(request):
@@ -50,6 +44,15 @@ def logout_user(request):
     return HttpResponseRedirect("/")
 
 
+def GetUserDetails(request):    # fetches the respective user details 
+    if request.user != None:
+        return HttpResponse("User : "+request.user.email+" usertype : "+str(request.user.user_type))
+
+    else:   # if user already exists
+        return HttpResponse("Please Login First")
+
+
+# Used Firebase to send notification to staff and student
 def showFirebaseJS(request):
     data = 'importScripts("https://www.gstatic.com/firebasejs/7.14.6/firebase-app.js");' \
         'importScripts("https://www.gstatic.com/firebasejs/7.14.6/firebase-messaging.js"); ' \
@@ -82,6 +85,10 @@ def signup_admin(request):
     return render(request, "signup_admin_page.html")
 
 
+def signup_staff(request):
+    return render(request, "signup_staff_page.html")
+
+
 def signup_student(request):
     courses = Courses.objects.all()
     session_years = SessionYearModel.object.all()
@@ -89,11 +96,7 @@ def signup_student(request):
     return render(request, "signup_student_page.html", context)
 
 
-def signup_staff(request):
-    return render(request, "signup_staff_page.html")
-
-
-def do_admin_signup(request):
+def do_admin_signup(request):   # signup verification 
     username = request.POST.get("username")
     email = request.POST.get("email")
     password = request.POST.get("password")
@@ -108,7 +111,7 @@ def do_admin_signup(request):
 
     except:
         messages.error(request, "Failed to Create Admin")
-        return HttpResponseRedirect(reverse("show_login"))
+        return HttpResponseRedirect(reverse("signup_admin"))
 
 
 def do_staff_signup(request):
@@ -134,7 +137,7 @@ def do_staff_signup(request):
 
     except:
         messages.error(request, "Failed to Create Staff")
-        return HttpResponseRedirect(reverse("show_login"))
+        return HttpResponseRedirect(reverse("signup_staff"))
 
 
 def do_signup_student(request):

@@ -14,7 +14,7 @@ from management_app.models import (
 )
 
 
-def admin_page(request):
+def admin_page(request):    # admin homepage that shows the graphs and status
     student_count1 = Students.objects.all().count()
     staff_count = Staffs.objects.all().count()
     subject_count = Subjects.objects.all().count()
@@ -69,6 +69,7 @@ def admin_page(request):
             student_id=student.id, status=False).count()
         leaves = LeaveReportStudent.objects.filter(
             student_id=student.id, leave_status=1).count()
+        
         attendance_present_list_student.append(attendance)
         attendance_absent_list_student.append(leaves+absent)
         student_name_list.append(student.admin.username)
@@ -81,11 +82,11 @@ def admin_page(request):
         )
 
 
-def add_staff(request):
+def add_staff(request):     # add staff page
     return render(request, "admin_template/add_staff_template.html")
 
 
-def add_staff_save(request):
+def add_staff_save(request):   
     if request.method != "POST":
         return HttpResponse("Method Not Allowed")
     
@@ -97,8 +98,9 @@ def add_staff_save(request):
         password = request.POST.get("password")
         address = request.POST.get("address")
         
-        try:
-            user = CustomUser.objects.create_user(
+        try:    
+            # creates a user uniquely cross checking everything with database
+            user = CustomUser.objects.create_user(  
                 username=username, password=password, email=email, 
                 last_name=last_name, first_name=first_name, user_type=2)
             user.staffs.address = address
@@ -122,7 +124,7 @@ def add_course_save(request):
     
     else:
         course = request.POST.get("course")
-        try:
+        try:    
             course_model = Courses(course_name=course)
             course_model.save()
             
@@ -158,11 +160,7 @@ def add_student_save(request):
             course_id = form.cleaned_data["course"]
             sex = form.cleaned_data["sex"]
 
-            # profile_pic = request.FILES['profile_pic']
             fs = FileSystemStorage()
-            # filename = fs.save(profile_pic.name, profile_pic)
-            # profile_pic_url = fs.url(filename)
-
             try:
                 user = CustomUser.objects.create_user(
                     username=username, password=password, email=email, 
@@ -173,7 +171,6 @@ def add_student_save(request):
                 session_year = SessionYearModel.object.get(id=session_year_id)
                 user.students.session_year_id = session_year
                 user.students.gender = sex
-                # user.students.profile_pic = profile_pic_url
                 user.save()
                 
                 messages.success(request, "Student Added Succesfully")
