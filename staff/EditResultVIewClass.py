@@ -13,12 +13,10 @@ class EditResultViewClass(View):
     def get(self,request,*args,**kwargs):
         staff_id=request.user.id
         edit_result_form=EditResultForm(staff_id=staff_id)
-        
-        context = {"form":edit_result_form}
-        return render(request,"staff_template/edit_student_result.html",context)
+        return render(request,"staff_template/edit_student_result.html",{"form":edit_result_form})
 
     def post(self,request,*args,**kwargs):
-        form=EditResultForm(staff_id=request.user.id,data=request.POST)
+        form=EditResultForm(staff_id=request.user.id, data=request.POST)
         
         if form.is_valid():
             student_admin_id = form.cleaned_data['student_ids']
@@ -33,13 +31,12 @@ class EditResultViewClass(View):
             result.subject_assignment_marks=assignment_marks
             result.subject_exam_marks=exam_marks
             result.save()
-            
+
             messages.success(request, "Successfully Updated Result")
             return HttpResponseRedirect(reverse("edit_student_result"))
+        
         else:
             messages.error(request, "Failed to Update Result")
             form=EditResultForm(request.POST,staff_id=request.user.id)
-            
-            context = {"form":form}
-            return render(request,"staff_template/edit_student_result.html",context)
-
+            return render(request,"staff_template/edit_student_result.html",{"form":form})
+        
