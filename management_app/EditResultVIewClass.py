@@ -28,7 +28,7 @@ class EditResultViewClass(View):
             result = StudentResult.objects.get(subject_id=subject_obj, student_id=student_obj)
             
             result.subject_assignment_marks = assignment_marks
-            result.subject_exam_marks = exam_marks  # pass = if mark above 40 or abve. else fail 
+            result.subject_exam_marks = exam_marks  # pass = if mark above 40 or above. else fail 
             result.save()
             
             messages.success(request, "Successfully Updated Result")
