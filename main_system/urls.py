@@ -18,11 +18,12 @@ urlpatterns = [
     path('student/', include('student.urls')),
     
     
+    # signup 
     path('signup_admin',views.signup_admin,name="signup_admin"),
-    
     path('signup_student',views.signup_student,name="signup_student"),
     path('signup_staff',views.signup_staff,name="signup_staff"),
     
+    # signup verification and saving
     path('do_admin_signup',views.do_admin_signup,name="do_admin_signup"),
     path('do_staff_signup',views.do_staff_signup,name="do_staff_signup"),
     path('do_signup_student',views.do_signup_student,name="do_signup_student"),

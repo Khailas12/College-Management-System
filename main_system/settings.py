@@ -2,7 +2,7 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# SECURITY WARNING: keep the secret key used in production secret!
+
 SECRET_KEY = 'so*rai_2(lk7t(yh%de+_kp_c%*r_b9wkga%gyo5tl9_8_r!xx'
 
 DEBUG = True
@@ -91,9 +91,6 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-# Internationalization
-# https://docs.djangoproject.com/en/2.2/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -104,27 +101,11 @@ USE_L10N = True
 
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/2.2/howto/static-files/
-
 STATIC_URL = '/static/'
+
+# authentication
 AUTH_USER_MODEL="management_app.CustomUser"
 AUTHENTICATION_BACKENDS=['management_app.EmailBackEnd.EmailBackEnd']
 
 EMAIL_BACKEND="django.core.mail.backends.filebased.EmailBackend"
 EMAIL_FILE_PATH=os.path.join(BASE_DIR,"sent_mails")
-
-# EMAIL_HOST="smtp.gmail.com"
-# EMAIl_PORT=587
-# EMAIL_HOST_USER="GMAIL_EMAIL"
-# EMAIL_HOST_PASSWORD="GMAIL PASSWORD"
-# EMAIL_USE_TLS=True
-# DEFAULT_FROM_EMAIL="Student management System <GMAIl_EMAIL>"
-#
-
-#Enable Only Making Project Live on Heroku
-# STATICFILES_STORAGE='whitenoise.storage.CompressedManifestStaticFilesStorage'
-# import dj_database_url
-# prod_db=dj_database_url.config(conn_max_age=500)
-# DATABASES['default'].update(prod_db)

@@ -17,11 +17,11 @@ def doLogin(request):   # loigin verification and redirect to respective page
     if request.method != "POST":
         return HttpResponse("<h2>Method Not Allowed</h2>")
     
-    else:   
+    else:   # uses help of EmailBackEnd to verify the user
         user = EmailBackEnd.authenticate(request, username=request.POST.get(
             "email"), password=request.POST.get("password"))
 
-        if user != None:    # if user exists
+        if user != None:    # if user already exists
             login(request, user)
 
             # redirects to the specific page according to the usertype
