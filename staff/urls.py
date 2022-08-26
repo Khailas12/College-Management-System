@@ -1,5 +1,5 @@
 from django.urls import path
-from management_app.EditResultVIewClass import EditResultViewClass
+from .EditResultVIewClass import EditResultViewClass
 
 from . import views
 
