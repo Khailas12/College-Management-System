@@ -69,27 +69,27 @@ def admin_page(request):    # admin homepage that shows the graphs and status
             student_id=student.id, status=False).count()
         leaves = LeaveReportStudent.objects.filter(
             student_id=student.id, leave_status=1).count()
-        
+
         attendance_present_list_student.append(attendance)
         attendance_absent_list_student.append(leaves+absent)
         student_name_list.append(student.admin.username)
 
     return render(
-        request, "admin_template/home_content.html", 
-        {"student_count": student_count1, "staff_count": staff_count, "subject_count": subject_count, 
-         "course_count": course_count, "course_name_list": course_name_list, "subject_count_list": subject_count_list, "student_count_list_in_course": student_count_list_in_course, "student_count_list_in_subject": student_count_list_in_subject, "subject_list": subject_list, "staff_name_list": staff_name_list, 
+        request, "admin_template/home_content.html",
+        {"student_count": student_count1, "staff_count": staff_count, "subject_count": subject_count,
+         "course_count": course_count, "course_name_list": course_name_list, "subject_count_list": subject_count_list, "student_count_list_in_course": student_count_list_in_course, "student_count_list_in_subject": student_count_list_in_subject, "subject_list": subject_list, "staff_name_list": staff_name_list,
          "attendance_present_list_staff": attendance_present_list_staff, "attendance_absent_list_staff": attendance_absent_list_staff, "student_name_list": student_name_list, "attendance_present_list_student": attendance_present_list_student, "attendance_absent_list_student": attendance_absent_list_student}
-        )
+    )
 
 
 def add_staff(request):     # add staff page
     return render(request, "admin_template/add_staff_template.html")
 
 
-def add_staff_save(request):   
+def add_staff_save(request):
     if request.method != "POST":
         return HttpResponse("Method Not Allowed")
-    
+
     else:
         first_name = request.POST.get("first_name")
         last_name = request.POST.get("last_name")
@@ -97,18 +97,21 @@ def add_staff_save(request):
         email = request.POST.get("email")
         password = request.POST.get("password")
         address = request.POST.get("address")
-        
-        try:    
+        course_id = request.POST.get("course")
+        sex = request.POST.get("sex")
+
+        try:
             # creates a user uniquely cross checking everything with database
-            user = CustomUser.objects.create_user(  
-                username=username, password=password, email=email, 
+            user = CustomUser.objects.create_user(
+                username=username, password=password, email=email,
                 last_name=last_name, first_name=first_name, user_type=2)
-            user.staffs.address = address
+            user.staffs.course_id = course_id
+            user.staffs.sex = address
             user.save()
-            
+
             messages.success(request, "Successfully Added Staff")
             return HttpResponseRedirect(reverse("manage_staff"))
-        
+
         except:
             messages.error(request, "Failed to Add Staff")
             return HttpResponseRedirect(reverse("add_staff"))
@@ -121,16 +124,16 @@ def add_course(request):
 def add_course_save(request):
     if request.method != "POST":
         return HttpResponse("Method Not Allowed")
-    
+
     else:
         course = request.POST.get("course")
-        try:    
+        try:
             course_model = Courses(course_name=course)
             course_model.save()
-            
+
             messages.success(request, "Successfully Added Course")
             return HttpResponseRedirect(reverse("manage_course"))
-        
+
         except Exception as e:
             print(e)
             messages.error(request, "Failed To Add Course")
@@ -146,7 +149,7 @@ def add_student(request):
 def add_student_save(request):
     if request.method != "POST":
         return HttpResponse("Method Not Allowed")
-    
+
     else:
         form = AddStudentForm(request.POST, request.FILES)
         if form.is_valid():
@@ -163,7 +166,7 @@ def add_student_save(request):
             fs = FileSystemStorage()
             try:
                 user = CustomUser.objects.create_user(
-                    username=username, password=password, email=email, 
+                    username=username, password=password, email=email,
                     last_name=last_name, first_name=first_name, user_type=3)
                 user.students.address = address
                 course_obj = Courses.objects.get(id=course_id)
@@ -172,10 +175,10 @@ def add_student_save(request):
                 user.students.session_year_id = session_year
                 user.students.gender = sex
                 user.save()
-                
+
                 messages.success(request, "Student Added Succesfully")
                 return HttpResponseRedirect(reverse("manage_student"))
-            
+
             except:
                 messages.error(request, "Failed to Add Student")
                 return HttpResponseRedirect(reverse("add_student"))
@@ -195,7 +198,7 @@ def add_subject(request):
 def add_subject_save(request):
     if request.method != "POST":
         return HttpResponse("<h2>Method Not Allowed</h2>")
-    
+
     else:
         subject_name = request.POST.get("subject_name")
         course_id = request.POST.get("course")
@@ -204,12 +207,13 @@ def add_subject_save(request):
         staff = CustomUser.objects.get(id=staff_id)
 
         try:
-            subject = Subjects(subject_name=subject_name, course_id=course, staff_id=staff)
+            subject = Subjects(subject_name=subject_name,
+                               course_id=course, staff_id=staff)
             subject.save()
-            
+
             messages.success(request, "Successfully Added Subject")
             return HttpResponseRedirect(reverse("manage_subject"))
-        
+
         except:
             messages.error(request, "Failed to Add Subject")
             return HttpResponseRedirect(reverse("add_subject"))
@@ -242,12 +246,12 @@ def manage_subject(request):
 def delete_subject(request, id):
     if request.method == "POST":
         return HttpResponse("<h2>Method Not Allowed</h2>")
-    
+
     else:
         subject_id = request.POST.get("subject_id")
         subject = Subjects.objects.get(id=id)
         subject.delete()
-        
+
         context = {"subject_id": subject_id, "id": subject_id}
         messages.error(request, "Subject Deleted")
         return HttpResponseRedirect(reverse("manage_subject"), context)
@@ -262,7 +266,7 @@ def edit_staff(request, staff_id):
 def edit_staff_save(request):
     if request.method != "POST":
         return HttpResponse("<h2>Method Not Allowed</h2>")
-    
+
     else:
         staff_id = request.POST.get("staff_id")
         first_name = request.POST.get("first_name")
@@ -284,7 +288,7 @@ def edit_staff_save(request):
             staff_model.save()
             messages.success(request, "Successfully Edited Staff")
             return HttpResponseRedirect(reverse("edit_staff", kwargs={"staff_id": staff_id}))
-        
+
         except:
             messages.error(request, "Failed to Edit Staff")
             return HttpResponseRedirect(reverse("edit_staff", kwargs={"staff_id": staff_id}))
@@ -293,23 +297,22 @@ def edit_staff_save(request):
 def delete_staff(request, staff_id):
     if request.method == "POST":
         return HttpResponse("<h2>Method Not Allowed</h2>")
-    
+
     else:
         request.session['staff_id'] = staff_id
         staff = Staffs.objects.get(admin=staff_id)
         staff.delete()
-        
+
         context = {"staff_id": staff_id, "id": staff_id}
         messages.error(request, "Staff Deleted")
         return HttpResponseRedirect(reverse("manage_staff"), context)
-
 
 
 def edit_student(request, student_id):
     request.session['student_id'] = student_id
     student = Students.objects.get(admin=student_id)
     form = EditStudentForm()
-    
+
     form.fields['email'].initial = student.admin.email
     form.fields['first_name'].initial = student.admin.first_name
     form.fields['last_name'].initial = student.admin.last_name
@@ -318,22 +321,23 @@ def edit_student(request, student_id):
     form.fields['course'].initial = student.course_id.id
     form.fields['sex'].initial = student.gender
     form.fields['session_year_id'].initial = student.session_year_id.id
-    
-    context = {"form": form, "id": student_id, "username": student.admin.username}
+
+    context = {"form": form, "id": student_id,
+               "username": student.admin.username}
     return render(request, "admin_template/edit_student_template.html", context)
 
 
 def edit_student_save(request):
     if request.method != "POST":
         return HttpResponse("<h2>Method Not Allowed</h2>")
-    
+
     else:
         student_id = request.session.get("student_id")
         if student_id == None:
             return HttpResponseRedirect(reverse("manage_student"))
 
         form = EditStudentForm(request.POST, request.FILES)
-        
+
         if form.is_valid():
             first_name = form.cleaned_data["first_name"]
             last_name = form.cleaned_data["last_name"]
@@ -359,37 +363,35 @@ def edit_student_save(request):
                 student.gender = sex
                 course = Courses.objects.get(id=course_id)
                 student.course_id = course
-                
-                # if profile_pic_url != None:
-                #     student.profile_pic = profile_pic_url
                 student.save()
+
                 del request.session['student_id']
-                
+
                 messages.success(request, "Successfully Edited Student")
                 return HttpResponseRedirect(reverse("edit_student", kwargs={"student_id": student_id}))
-            
+
             except:
                 messages.error(request, "Failed to Edit Student")
                 return HttpResponseRedirect(reverse("edit_student", kwargs={"student_id": student_id}))
-            
+
         else:
             form = EditStudentForm(request.POST)
             student = Students.objects.get(admin=student_id)
-            
-            context = {"form": form, "id": student_id, 
-                "username": student.admin.username}
+
+            context = {"form": form, "id": student_id,
+                       "username": student.admin.username}
             return render(request, "admin_template/edit_student_template.html", context)
 
 
 def delete_student(request, student_id):
     if request.method == "POST":
         return HttpResponse("<h2>Method Not Allowed</h2>")
-    
+
     else:
         request.session['student_id'] = student_id
         student = Students.objects.get(admin=student_id)
         student.delete()
-        
+
         context = {"student_id": student_id, "id": student_id}
         messages.error(request, "Student Deleted")
         return HttpResponseRedirect(reverse("manage_student"), context)
@@ -399,15 +401,16 @@ def edit_subject(request, subject_id):
     subject = Subjects.objects.get(id=subject_id)
     courses = Courses.objects.all()
     staffs = CustomUser.objects.filter(user_type=2)
-    
-    context = {"subject": subject, "staffs": staffs, "courses": courses, "id": subject_id}
+
+    context = {"subject": subject, "staffs": staffs,
+               "courses": courses, "id": subject_id}
     return render(request, "admin_template/edit_subject_template.html", context)
 
 
 def edit_subject_save(request):
     if request.method != "POST":
         return HttpResponse("<h2>Method Not Allowed</h2>")
-    
+
     else:
         subject_id = request.POST.get("subject_id")
         subject_name = request.POST.get("subject_name")
@@ -430,10 +433,9 @@ def edit_subject_save(request):
             return HttpResponseRedirect(reverse("edit_subject", kwargs={"subject_id": subject_id}))
 
 
-
 def edit_course(request, course_id):
     course = Courses.objects.get(id=course_id)
-    
+
     context = {"course": course, "id": course_id}
     return render(request, "admin_template/edit_course_template.html", context)
 
@@ -441,7 +443,7 @@ def edit_course(request, course_id):
 def edit_course_save(request):
     if request.method != "POST":
         return HttpResponse("<h2>Method Not Allowed</h2>")
-    
+
     else:
         course_id = request.POST.get("course_id")
         course_name = request.POST.get("course")
@@ -451,10 +453,10 @@ def edit_course_save(request):
             print(Courses.course_name)
             course.course_name = course_name
             course.save()
-            
+
             messages.success(request, "Successfully Edited Course")
             return HttpResponseRedirect(reverse("edit_course", kwargs={"course_id": course_id}))
-        
+
         except:
             messages.error(request, "Failed to Edit Course")
             return HttpResponseRedirect(reverse("edit_course", kwargs={"course_id": course_id}))
@@ -463,12 +465,12 @@ def edit_course_save(request):
 def delete_course(request, id):
     if request.method == "POST":
         return HttpResponse("<h2>Method Not Allowed</h2>")
-    
+
     else:
         course_id = request.POST.get("course_id")
         course = Courses.objects.get(id=id)
         course.delete()
-        
+
         context = {"course_id": course_id, "id": course_id}
         messages.error(request, "Course Deleted")
         return HttpResponseRedirect(reverse("manage_course"), context)
@@ -481,7 +483,7 @@ def manage_session(request):
 def add_session_save(request):
     if request.method != "POST":
         return HttpResponseRedirect(reverse("manage_session"))
-    
+
     else:
         session_start_year = request.POST.get("session_start")
         session_end_year = request.POST.get("session_end")
@@ -490,10 +492,10 @@ def add_session_save(request):
             sessionyear = SessionYearModel(
                 session_start_year=session_start_year, session_end_year=session_end_year)
             sessionyear.save()
-            
+
             messages.success(request, "Successfully Added Session")
             return HttpResponseRedirect(reverse("manage_session"))
-        
+
         except:
             messages.error(request, "Failed to Add Session")
             return HttpResponseRedirect(reverse("manage_session"))
@@ -503,10 +505,10 @@ def add_session_save(request):
 def check_email_exist(request):
     email = request.POST.get("email")
     user_obj = CustomUser.objects.filter(email=email).exists()
-    
+
     if user_obj:
         return HttpResponse(True)
-    
+
     else:
         return HttpResponse(False)
 
@@ -515,10 +517,10 @@ def check_email_exist(request):
 def check_username_exist(request):
     username = request.POST.get("username")
     user_obj = CustomUser.objects.filter(username=username).exists()
-    
+
     if user_obj:
         return HttpResponse(True)
-    
+
     else:
         return HttpResponse(False)
 
@@ -545,7 +547,7 @@ def student_feedback_message_replied(request):
         feedback.feedback_reply = feedback_message
         feedback.save()
         return HttpResponse("True")
-    
+
     except:
         return HttpResponse("False")
 
@@ -560,7 +562,7 @@ def staff_feedback_message_replied(request):
         feedback.feedback_reply = feedback_message
         feedback.save()
         return HttpResponse("True")
-    
+
     except:
         return HttpResponse("False")
 
@@ -573,7 +575,7 @@ def staff_leave_view(request):
 
 def student_leave_view(request):
     leaves = LeaveReportStudent.objects.all()
-    context =   {"leaves": leaves}
+    context = {"leaves": leaves}
     return render(request, "admin_template/student_leave_view.html", context)
 
 
@@ -624,7 +626,7 @@ def admin_get_attendance_dates(request):
         subject_id=subject_obj, session_year_id=session_year_obj
     )
     attendance_obj = []
-    
+
     for attendance_single in attendance:
         data = {"id": attendance_single.id, "attendance_date": str(
             attendance_single.attendance_date), "session_year_id": attendance_single.session_year_id.id}
@@ -643,37 +645,37 @@ def admin_get_attendance_student(request):
 
     for student in attendance_data:
         data_small = {"id": student.student_id.admin.id,
-                    "name": student.student_id.admin.first_name + " "+student.student_id.admin.last_name, 
-                    "status": student.status}
+                      "name": student.student_id.admin.first_name + " "+student.student_id.admin.last_name,
+                      "status": student.status}
         list_data.append(data_small)
-        
+
     return JsonResponse(json.dumps(list_data), content_type="application/json", safe=False)
 
 
 def admin_profile(request):
     user = CustomUser.objects.get(id=request.user.id)
-    context = {"user": user}    
+    context = {"user": user}
     return render(request, "admin_template/admin_profile.html", context)
 
 
 def admin_profile_save(request):
     if request.method != "POST":
         return HttpResponseRedirect(reverse("admin_profile"))
-    
+
     else:
         first_name = request.POST.get("first_name")
         last_name = request.POST.get("last_name")
         password = request.POST.get("password")
-        
+
         try:
             customuser = CustomUser.objects.get(id=request.user.id)
             customuser.first_name = first_name
             customuser.last_name = last_name
-            
+
             customuser.save()
             messages.success(request, "Successfully Updated Profile")
             return HttpResponseRedirect(reverse("admin_profile"))
-        
+
         except:
             messages.error(request, "Failed to Update Profile")
             return HttpResponseRedirect(reverse("admin_profile"))
@@ -697,9 +699,9 @@ def send_student_notification(request):
     message = request.POST.get("message")
     student = Students.objects.get(admin=id)
     token = student.fcm_token
-    
+
     url = "https://fcm.googleapis.com/fcm/send"
-    
+
     body = {
         "notification": {
             "title": "Student Management System",
@@ -710,8 +712,8 @@ def send_student_notification(request):
         "to": token
     }
     headers = {"Content-Type": "application/json",
-        "Authorization": "key=SERVER_KEY_HERE"}
-    
+               "Authorization": "key=SERVER_KEY_HERE"}
+
     data = requests.post(url, data=json.dumps(body), headers=headers)
     notification = NotificationStudent(student_id=student, message=message)
     notification.save()
@@ -726,7 +728,7 @@ def send_staff_notification(request):
     staff = Staffs.objects.get(admin=id)
     token = staff.fcm_token
     url = "https://fcm.googleapis.com/fcm/send"
-    
+
     body = {
         "notification": {
             "title": "Student Management System",
@@ -737,11 +739,11 @@ def send_staff_notification(request):
         "to": token
     }
     headers = {"Content-Type": "application/json",
-        "Authorization": "key=SERVER_KEY_HERE"}
-    
+               "Authorization": "key=SERVER_KEY_HERE"}
+
     data = requests.post(url, data=json.dumps(body), headers=headers)
     notification = NotificationStaffs(staff_id=staff, message=message)
     notification.save()
-    
+
     print(data.text)
     return HttpResponse("True")

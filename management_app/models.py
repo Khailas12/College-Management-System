@@ -59,7 +59,7 @@ class Students(models.Model):
     gender = models.CharField(max_length=255)
     profile_pic = models.FileField()
     address = models.TextField()
-    course_id = models.ForeignKey(Courses, on_delete=models.DO_NOTHING)
+    course_id = models.ForeignKey(Courses, on_delete=models.CASCADE)
     session_year_id = models.ForeignKey(
         SessionYearModel, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -70,7 +70,7 @@ class Students(models.Model):
 
 class Attendance(models.Model):
     id = models.AutoField(primary_key=True)
-    subject_id = models.ForeignKey(Subjects, on_delete=models.DO_NOTHING)
+    subject_id = models.ForeignKey(Subjects, on_delete=models.CASCADE)
     attendance_date = models.DateField()
     created_at = models.DateTimeField(auto_now_add=True)
     session_year_id = models.ForeignKey(
