@@ -494,7 +494,7 @@ def add_session_save(request):
             sessionyear.save()
 
             messages.success(request, "Successfully Added Session")
-            return HttpResponseRedirect(reverse("manage_session"))
+            return HttpResponseRedirect(reverse("view_session_year"))
 
         except:
             messages.error(request, "Failed to Add Session")
