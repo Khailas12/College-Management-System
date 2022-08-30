@@ -85,7 +85,6 @@ def admin_page(request):    # admin homepage that shows the graphs and status
 def add_staff(request):     # add staff page
     return render(request, "admin_template/add_staff_template.html")
 
-
 def add_staff_save(request):
     if request.method != "POST":
         return HttpResponse("Method Not Allowed")
